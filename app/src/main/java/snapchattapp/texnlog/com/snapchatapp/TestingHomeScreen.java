@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import demo.snapchatapp.R;
 
-public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
+public class TestingHomeScreen extends AppCompatActivity implements GestureDetector.OnGestureListener {
     private static final String DEBUG ="Debugging" ;
 
     LinearLayout homeScreen;
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.Testing_layout);
         homeScreen=(LinearLayout) findViewById(R.id.homeScreenLayout);
         swipeDetector=new GestureDetector(this,this);
         screenText=(TextView) findViewById(R.id.textView);

@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -100,7 +99,7 @@ public class SecondActivity extends Activity implements GestureDetector.OnGestur
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) // Swipe Event
     {
         if (e1.getX() < e2.getX()) { //Swipe Left to Right
-            Intent mainScreenIntent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent mainScreenIntent = new Intent(getApplicationContext(), TestingHomeScreen.class);
             startActivityForResult(mainScreenIntent,MAIN_SCREEN_CODE);
         }
 
