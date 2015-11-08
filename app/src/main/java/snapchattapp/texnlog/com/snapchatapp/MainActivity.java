@@ -54,11 +54,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
 
-
                 startActivity(new Intent(this, login.class));
                 break;
-
         }
     }
-
 }
+
+

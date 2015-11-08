@@ -1,7 +1,7 @@
 package snapchattapp.texnlog.com.snapchatapp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 /**
  * Created by ΕΙΡΗΝΗ on 6/11/2015.
  */
+
 public class register extends AppCompatActivity implements View.OnClickListener {
 
     Button bRegister;
@@ -24,11 +25,10 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_register);
 
         etName= (EditText)findViewById(R.id.etName);
+        etUsername= (EditText)findViewById(R.id.etName);
         etPassword = (EditText)findViewById(R.id.etPassword);
         etAge = (EditText)findViewById(R.id.etAge);
         bRegister =(Button)findViewById(R.id.bRegister);
-
-
 
 
         bRegister.setOnClickListener(this);
@@ -46,17 +46,24 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                 int age = Integer.parseInt(etAge.getText().toString());
 
 
-                User registeredData = new User(name, age, username, password);
+                User user = new User(name, age, username, password);
 
-
+                registerUser(user);
 
                 break;
-
         }
-
-
+    }
+    private void registerUser(User user){
+        ServerRequests serverRequests = new ServerRequests(this);
+        serverRequests.storeUserDataInBackground(user, new GetUserCallback() {
+            @Override
+            public void done(User returnedUser) {
+                startActivity(new Intent(register.this, login.class));
+            }
+        });
 
     }
+
 }
 
 
