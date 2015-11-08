@@ -1,11 +1,9 @@
-package demo.myapplication;
+package snapchattapp.texnlog.com.snapchatapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Icon;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,7 +11,6 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -21,13 +18,15 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import demo.snapchatapp.R;
+
 
 public class SecondActivity extends Activity implements GestureDetector.OnGestureListener{
     private static final int MAIN_SCREEN_CODE = 14,REQUEST_TAKE_PHOTO = 1;
-    LinearLayout secondLayout;
-    GestureDetector detector;
-    ImageView imageView;
-    File photoFile,storageDir,image;
+    private LinearLayout secondLayout;
+    private GestureDetector detector;
+    private ImageView imageView;
+    private File photoFile;
 
 
     @Override
@@ -40,20 +39,18 @@ public class SecondActivity extends Activity implements GestureDetector.OnGestur
         secondLayout = (LinearLayout) findViewById(R.id.second_layout);
         imageView=(ImageView) findViewById(R.id.image);
         detector=new GestureDetector(this,this);
-
     }
 
 
     private File createImageFile()      // Create an image file name
     {
-        image = null;
-        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()); // Date Stamp for later usage
+        File image = null;
         String imageFileName = "JPEG_Demo";
-        storageDir = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DCIM);
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         try
         {
             image = File.createTempFile(imageFileName, ".jpg", storageDir);
-            Log.i("image",image.getAbsolutePath());
+
         }
         catch (IOException e) {Toast.makeText(this,"Failed",Toast.LENGTH_SHORT).show();}
 
@@ -66,12 +63,15 @@ public class SecondActivity extends Activity implements GestureDetector.OnGestur
     private void TakePictureIntent()
     {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        photoFile = null;   // Create the File where the photo should go
         photoFile = createImageFile();
         if (photoFile != null)  // Continue only if the File was successfully created
         {
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photoFile));
             startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        }
+        else
+        {
+            Toast.makeText(this,"Picture creation has encountered a problem",Toast.LENGTH_LONG).show();
         }
 
     }
@@ -81,11 +81,13 @@ public class SecondActivity extends Activity implements GestureDetector.OnGestur
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode==REQUEST_TAKE_PHOTO&&resultCode==RESULT_OK)
         {
-            imageView.setImageURI(Uri.fromFile(photoFile));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            Bitmap largeBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath(),bmOptions);
+            imageView.setImageBitmap(largeBitmap);
+            imageView.setScaleY(1.5f);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setAdjustViewBounds(true);
             imageView.setRotation(90);
         }
@@ -117,28 +119,15 @@ public class SecondActivity extends Activity implements GestureDetector.OnGestur
     public  void onDestroy()
     {
         super.onDestroy();
-        if(!image.equals(null))
+        if(photoFile.exists())
         {
-            image.delete();
             photoFile.delete();
             Toast.makeText(this, "Image Deleted", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    @Override
-    public  void onPause()
-    {
-        super.onPause();
-        if(!image.equals(null))
-        {
-            image.delete();
-            photoFile.delete();
-            Toast.makeText(this, "Image Deleted", Toast.LENGTH_LONG).show();
-        }
 
-
-    }
 
 
 

@@ -1,4 +1,4 @@
-package demo.myapplication;
+package demo.snapchatapp;
 
 import org.junit.Test;
 
