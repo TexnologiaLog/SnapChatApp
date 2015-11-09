@@ -25,7 +25,7 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_register);
 
         etName= (EditText)findViewById(R.id.etName);
-        etUsername= (EditText)findViewById(R.id.etName);
+        etUsername= (EditText)findViewById(R.id.etUsername);
         etPassword = (EditText)findViewById(R.id.etPassword);
         etAge = (EditText)findViewById(R.id.etAge);
         bRegister =(Button)findViewById(R.id.bRegister);
