@@ -6,7 +6,48 @@ package snapchattapp.texnlog.com.snapchatapp;
 public class accountValidator {
     String[] restrictedCharacters = {"!","@","#","$","%","^","&","*","(",")","-","+","*","/"};
 
-    //Method that checks the integrity of the the name.
+    //Method that calls the rest of the account checks and reports its results to register.
+    public boolean isRegisterValid(User user){
+        boolean ageCheck = isAgeValid(user.age);
+        if(ageCheck == false)
+            return false;
+
+        boolean nameCheck = isNameValid(user.name);
+        if(nameCheck == false)
+            return false;
+
+        boolean usernameCheck = isUsernameValid(user.username);
+        if(usernameCheck == false)
+            return false;
+
+        boolean passwordCheck = isPasswordValid(user.password);
+        if(passwordCheck == false)
+            return false;
+        return true;
+    }
+
+    // Method that checks the integrity of the age.
+    public boolean isAgeValid(int age){
+        boolean check = true;
+
+        /*
+        for(int i=0; i< restrictedCharacters.length; i++){
+            if(age.contains(restrictedCharacters[i]))
+                check = false;
+        }
+        if(age.contains(" "))
+            check = false;
+        if(age.equals(""))
+            check = false;
+        if(age.contains("a-zA-Z"))
+            check= false;
+
+        */
+        return check;
+    }
+
+
+    //Method that checks the integrity of the name.
     public boolean isNameValid(String name){
         boolean check = true;
         for(int i=0; i< restrictedCharacters.length; i++){
@@ -35,7 +76,7 @@ public class accountValidator {
         return check;
     }
 
-    //Method that checks the integrity of the the password.
+    //Method that checks the integrity of the password.
     public boolean isPasswordValid(String password){
         boolean check = true;
         for(int i=0; i< restrictedCharacters.length; i++){

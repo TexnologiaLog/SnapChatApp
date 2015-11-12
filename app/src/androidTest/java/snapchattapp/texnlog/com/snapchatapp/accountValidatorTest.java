@@ -11,6 +11,20 @@ import static org.junit.Assert.*;
 public class accountValidatorTest extends TestCase {
 
     @Test
+    public void nameValidationTest(){
+        accountValidator av = new accountValidator();
+        boolean result = av.isNameValid("sdgfs");
+        assertTrue(result);
+    }
+
+    @Test
+    public void nameValidation2Test(){
+        accountValidator av = new accountValidator();
+        boolean results = av.isNameValid("s33dfgj&^f$%d");
+        assertFalse(results);
+    }
+
+    @Test
     public void userNameValidationTest(){
         accountValidator av = new accountValidator();
         boolean results = av.isUsernameValid("asdfg");
@@ -28,13 +42,13 @@ public class accountValidatorTest extends TestCase {
     public void passwordValidationTest(){
         accountValidator av = new accountValidator();
         boolean results = av.isPasswordValid("123456akdb523");
-        assertFalse(results);
+        assertTrue(results);
     }
 
     @Test
     public void passwordValidation2Test(){
         accountValidator av = new accountValidator();
-        boolean results = av.isUsernameValid("sdf&*)jds#dsafi**da9__");
+        boolean results = av.isPasswordValid("sdf&*)jds#dsafi**da9__");
         assertFalse(results);
     }
 

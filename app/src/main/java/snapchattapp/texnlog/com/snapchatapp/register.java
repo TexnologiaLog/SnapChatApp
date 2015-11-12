@@ -42,23 +42,16 @@ public class register extends AppCompatActivity implements View.OnClickListener 
             case R.id.bRegister:
 
                 String name = etName.getText().toString();
+                int age = Integer.parseInt(etAge.getText().toString());
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                int age = Integer.parseInt(etAge.getText().toString());
 
-
+                User us = new User(name, age,username,password);
                 accountValidator av = new accountValidator();
-                boolean nameValidation = av.isNameValid(name);
-                boolean usernameValidation = av.isUsernameValid(username);
-                boolean passwordValidation = av.isPasswordValid(password);
+                boolean accountValidationCheck = av.isRegisterValid(us);
 
-                if(nameValidation == true && usernameValidation == true && passwordValidation == true) {
-
-                    User user = new User(name, age, username, password);
-
-                    registerUser(user);
-
-                    break;
+                if(accountValidationCheck == true) {
+                    registerUser(us);
                 }
                 else{
                     showErrorMessage();
@@ -84,7 +77,6 @@ public class register extends AppCompatActivity implements View.OnClickListener 
         dialogBuilder.show();
 
     }
-
 }
 
 
