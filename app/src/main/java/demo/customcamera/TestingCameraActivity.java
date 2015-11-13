@@ -27,7 +27,7 @@ public  class TestingCameraActivity extends Activity {
     private  static   Camera customCamera=null;
     private Camera.Parameters customCameraParam;
     private CameraPreview camPreview;
-    private ImageButton btnCamera,btnFlash;
+    private ImageButton btnCamera,btnPreviewImage;
     public static ImageView image;
     private PopupMenu popUp;
     private File mediaStorageDir,mediaFile;
@@ -53,12 +53,12 @@ public  class TestingCameraActivity extends Activity {
 
 
     private void FlashButtonAction() {
-        btnFlash.setOnClickListener(new View.OnClickListener() {
+        btnPreviewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Clicked");
                 Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(TestingCameraActivity.this,PhotoPreview.class);
+                Intent intent = new Intent(TestingCameraActivity.this, PhotoPreview.class);
                 intent.putExtra(PICTURE_TAKEN, mediaFile.getAbsolutePath());
                 startActivity(intent);
                 Log.d(TAG, "Starting PHOTO PREVIEW ACTIVITY");
@@ -79,8 +79,11 @@ public  class TestingCameraActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
                 customCamera.takePicture(null, null, null, new CameraCallback(customCamera));
                 Log.d(TAG, "Returned from CameraCallback");
-                preview.removeView(btnFlash);
-                preview.addView(btnFlash);
+                btnPreviewImage.setEnabled(true);
+                btnCamera.setEnabled(false);
+                preview.removeView(btnPreviewImage);
+                preview.addView(btnPreviewImage);
+
             }
         });
     }
@@ -99,11 +102,11 @@ public  class TestingCameraActivity extends Activity {
     private void InitializeButtons() {
 
         btnCamera=(ImageButton) findViewById(R.id.fab);
-        btnFlash=(ImageButton) findViewById(R.id.btnFlash);
+        btnPreviewImage=(ImageButton) findViewById(R.id.btnFlash);
         image=(ImageView) findViewById(R.id.image);
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
-
+        btnPreviewImage.setEnabled(false);
 
     }
 
@@ -149,6 +152,16 @@ public  class TestingCameraActivity extends Activity {
         if(customCamera!=null) customCamera.release(); Log.d(TAG, "Camera Released OnDestroy");
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        btnPreviewImage.setEnabled(false);
+        btnCamera.setEnabled(true);
 
+    }
 }
