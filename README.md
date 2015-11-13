@@ -1,6 +1,0 @@
-# SnapChatApp
-
-
-Texnologia Logismikou 
-
-SnapChatApp
