@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,11 +40,9 @@ public  class TestingCameraActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_layout);
-        InitializeCamera();
         InitializeButtons();
-        InitializeCameraPreview();
         CameraButtonAction();
-        FlashButtonAction();
+        ShowImageAction();
 
 
 
@@ -52,7 +51,7 @@ public  class TestingCameraActivity extends Activity {
 
 
 
-    private void FlashButtonAction() {
+    private void ShowImageAction() {
         btnPreviewImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,9 +60,7 @@ public  class TestingCameraActivity extends Activity {
                 Intent intent = new Intent(TestingCameraActivity.this, PhotoPreview.class);
                 intent.putExtra(PICTURE_TAKEN, mediaFile.getAbsolutePath());
                 startActivity(intent);
-                Log.d(TAG, "Starting PHOTO PREVIEW ACTIVITY");
-
-
+                Log.d(TAG, "Starting Photo preview Activity");
             }
 
 
@@ -83,7 +80,6 @@ public  class TestingCameraActivity extends Activity {
                 btnCamera.setEnabled(false);
                 preview.removeView(btnPreviewImage);
                 preview.addView(btnPreviewImage);
-
             }
         });
     }
@@ -114,7 +110,6 @@ public  class TestingCameraActivity extends Activity {
         checkCameraHardware(this);
         customCamera=getCameraInstance();
         if(customCamera==null) Toast.makeText(this, "Camera not availlable", Toast.LENGTH_LONG).show();
-
         customCameraParam=customCamera.getParameters();
         customCameraParam.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         customCameraParam.setJpegQuality(100);
@@ -152,16 +147,21 @@ public  class TestingCameraActivity extends Activity {
         if(customCamera!=null) customCamera.release(); Log.d(TAG, "Camera Released OnDestroy");
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 
     @Override
     protected void onStart() {
         super.onStart();
+        InitializeCamera();
+        InitializeCameraPreview();
         btnPreviewImage.setEnabled(false);
         btnCamera.setEnabled(true);
-
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.exit(0);
+    }
+
+
 }

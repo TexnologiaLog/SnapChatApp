@@ -13,9 +13,9 @@
         android:gravity="center"/>
 
     <ImageView
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:id="@+id/photo_preview"
         android:adjustViewBounds="true"
         />
@@ -29,17 +29,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New snap"
-        android:id="@+id/button"
+        android:text="@string/newSnap"
+        android:id="@+id/btnNewSnap"
         android:layout_marginTop="20dp"
          />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
-        android:id="@+id/button3"
-        android:layout_marginLeft="50dp"
+        android:text="@string/edit"
+        android:id="@+id/btnEdit"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
 
          />
@@ -48,10 +48,9 @@
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
-        android:id="@+id/button2"
-        android:layout_marginLeft="50dp"
-        />
+        android:text="@string/send"
+        android:id="@+id/btnSend"
+        android:layout_marginLeft="30dp"/>
     </LinearLayout>
 
 </LinearLayout>
