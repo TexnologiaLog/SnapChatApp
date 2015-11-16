@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".TestingCameraActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
@@ -30,7 +30,12 @@
             android:theme="@style/AlertDialog.AppCompat"
             android:screenOrientation="portrait">
         </activity>
-
+		<activity
+            android:name=".TestingCameraActivity"
+            android:theme="@style/AlertDialog.AppCompat"
+            android:screenOrientation="portrait">
+        </activity>
+		
     </application>
 
 </manifest>
