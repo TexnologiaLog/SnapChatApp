@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_rgister">rgister</string>
     <string name="title_activity_login">login</string>
+    <string name="edit">Edit</string>
+    <string name="send">Send</string>
+    <string name="newSnap">New Snap</string>
 </resources>

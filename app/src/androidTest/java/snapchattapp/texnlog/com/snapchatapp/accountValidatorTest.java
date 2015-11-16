@@ -1,9 +1,11 @@
 package snapchattapp.texnlog.com.snapchatapp;
 
 import junit.framework.TestCase;
+
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+
 
 /**
  * Created by thomas on 10/11/2015.
