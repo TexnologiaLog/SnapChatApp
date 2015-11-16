@@ -1,4 +1,4 @@
-package demo.customcamera;
+package snapchattapp.texnlog.com.snapchatapp;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import snapchattapp.texnlog.com.snapchatapp.R;
 
 /**
  * Created by SoRa1 on 11/11/2015.

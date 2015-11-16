@@ -1,4 +1,4 @@
-package demo.customcamera;
+package snapchattapp.texnlog.com.snapchatapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
