@@ -1,4 +1,4 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package demo.customcamera;
 
 import org.junit.Test;
 

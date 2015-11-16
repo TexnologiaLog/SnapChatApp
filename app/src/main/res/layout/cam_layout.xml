@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -17,7 +17,8 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/ic_camera_grey600_48dp"
-
+            app:layout_anchor="@id/cam_layout"
+            app:layout_anchorGravity="bottom|right|end"
             android:layout_margin="24dp"
             android:background="@drawable/oval"
             android:adjustViewBounds="true"
@@ -29,13 +30,25 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/ic_thumb_up_grey600_36dp"
-
+            app:layout_anchor="@id/cam_layout"
+            app:layout_anchorGravity="top|right|end"
             android:layout_margin="24dp"
             android:background="@drawable/oval"
             android:adjustViewBounds="true"
 
             android:layout_gravity="left|top"
-           />
+
+            />
+        <ZoomControls
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:id="@+id/CAMERA_ZOOM_CONTROLS"
+            />
+
 
 
 

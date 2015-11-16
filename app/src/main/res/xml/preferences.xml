@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <CheckBoxPreference
+        android:title="Zoom"
+        android:defaultValue="false"
+        android:key="zoomOption"
+        android:summary="Check the box to enable the zoom option"
+        />
+    <!--<ListPreference-->
+        <!--android:title="Quality Options"-->
+        <!--android:key="qualityList"-->
+        <!--android:summary="From here u can choose the quality of the saving photo"-->
+        <!--android:entries="array/qualityList"-->
+        <!--></ListPreference>-->
+
+</PreferenceScreen>

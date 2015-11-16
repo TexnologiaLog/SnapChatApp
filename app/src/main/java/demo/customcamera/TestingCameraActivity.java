@@ -1,4 +1,4 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package demo.customcamera;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,15 +9,19 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
-
-import snapchattapp.texnlog.com.snapchatapp.R;
+import java.util.List;
 
 public  class TestingCameraActivity extends Activity {
 
@@ -45,6 +49,29 @@ public  class TestingCameraActivity extends Activity {
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater blowup=getMenuInflater();
+        blowup.inflate(R.menu.settings_menu, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.settings:
+                Intent s =new Intent(TestingCameraActivity.this,SettingsActivity.class);
+                startActivity(s);
+                break;
+            case R.id.exit:
+                finish();
+                break;
+        }
+        return false;
+    }
+
 
 
 
