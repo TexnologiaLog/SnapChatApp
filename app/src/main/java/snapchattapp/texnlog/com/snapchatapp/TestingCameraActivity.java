@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -160,20 +159,6 @@ public  class TestingCameraActivity extends Activity {
     protected void onPause() {
         super.onPause();
         System.exit(0);
-    }
-
-    @Override
-    public void onBackPressed() {
-        System.exit(0);
-    }
-
-    @Override
-    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            return false;
-        }
-        return false;
     }
 
 
