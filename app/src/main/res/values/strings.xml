@@ -4,4 +4,7 @@
     <string name="newSnap">New Snap</string>
     <string name="edit">Edit</string>
     <string name="send">Send</string>
+    <string name="text">Text</string>
+    <string name="draw">Draw</string>
+    <string name="gallery">Gallery</string>
 </resources>

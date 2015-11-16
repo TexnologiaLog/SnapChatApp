@@ -14,16 +14,14 @@ import android.widget.Toast;
 /**
  * Created by SoRa1 on 11/11/2015.
  */
-public class PhotoPreview extends Activity
-{
-    private static final String TAG ="Debug" ;
+public class PhotoPreview extends Activity {
+    private static final String TAG = "Debug";
     ImageView imagePreview;
-    Button btnNewSnap,btnSend,btnEdit;
+    Button btnNewSnap, btnSend, btnEdit, btnGallery;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_layout);
         ViewImage();
@@ -33,7 +31,7 @@ public class PhotoPreview extends Activity
     private void ViewImage() {
         Intent intent = getIntent();
         String value = intent.getStringExtra("Picture"); //if it's a string you stored.
-        imagePreview=(ImageView) findViewById(R.id.photo_preview);
+        imagePreview = (ImageView) findViewById(R.id.photo_preview);
         imagePreview.setImageURI(Uri.parse(value));
         imagePreview.setRotation(90);
         imagePreview.setAdjustViewBounds(true);
@@ -46,36 +44,48 @@ public class PhotoPreview extends Activity
         System.exit(0);
     }
 
-    private void SetUpButtons()
-    {
-        btnNewSnap=(Button) findViewById(R.id.btnNewSnap);
-        btnEdit=(Button) findViewById(R.id.btnEdit);
-        btnSend=(Button) findViewById(R.id.btnSend);
+    private void SetUpButtons() {
+        btnNewSnap = (Button) findViewById(R.id.btnNewSnap);
+        btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnSend = (Button) findViewById(R.id.btnSend);
+        btnGallery = (Button) findViewById(R.id.btnGallery);
 
         SetUpButtonListeners();
     }
 
 
-    private void SetUpButtonListeners()
-    {
+    private void SetUpButtonListeners() {
         btnNewSnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class));
             }
         });
+
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ImageGallery.class));
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), EditPhoto.class));
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this,"Disabled Try New Snap",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Disabled Try New Snap", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            Toast.makeText(this,"Disabled Try New Snap",Toast.LENGTH_SHORT).show();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Toast.makeText(this, "Disabled Try New Snap", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
