@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onStart() {
         super.onStart();
         if (authenticate() == true) {
-            displayUserName();
+            //displayUserName();
+            startActivity(new Intent(MainActivity.this,TestingCameraActivity.class));
         }else{
             startActivity(new Intent(MainActivity.this,login.class));
         }
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             case R.id.bLogout:
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
-
                 startActivity(new Intent(this, login.class));
                 break;
         }
