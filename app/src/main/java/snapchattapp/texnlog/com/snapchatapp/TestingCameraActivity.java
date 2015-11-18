@@ -9,10 +9,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.File;
@@ -23,14 +29,19 @@ public  class TestingCameraActivity extends Activity {
 
     private static final String TAG ="Debug" ;
     private static final String PICTURE_TAKEN ="Picture" ;
+    private static final String ZOOM ="ZOOM" ;
+    private static  int zoom =10 ;
     private  static   Camera customCamera=null;
     private Camera.Parameters customCameraParam;
-    private CameraPreview camPreview;
+    private SurfaceView camPreview;
     private ImageButton btnCamera,btnPreviewImage;
     public static ImageView image;
     private PopupMenu popUp;
     private File mediaStorageDir,mediaFile;
     private FrameLayout preview;
+    private SeekBar zoomBar;
+    LinearLayout layout;
+    private ImageButton btnFrontCamera;
 
 
     @Override
@@ -38,6 +49,7 @@ public  class TestingCameraActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_layout);
+
         InitializeButtons();
         CameraButtonAction();
         ShowImageAction();
@@ -45,7 +57,14 @@ public  class TestingCameraActivity extends Activity {
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater blowup=getMenuInflater();
+        blowup.inflate(R.menu.settings_menu, menu);
+        return true;
 
+    }
 
 
 
@@ -78,6 +97,8 @@ public  class TestingCameraActivity extends Activity {
                 btnCamera.setEnabled(false);
                 preview.removeView(btnPreviewImage);
                 preview.addView(btnPreviewImage);
+
+                preview.removeView(zoomBar);
             }
         });
     }
@@ -88,8 +109,15 @@ public  class TestingCameraActivity extends Activity {
         camPreview=new CameraPreview(this,customCamera);
         preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(camPreview);
+
         preview.removeView(btnCamera);
         preview.addView(btnCamera);
+
+        preview.removeView(zoomBar);
+        preview.addView(zoomBar);
+
+
+
 
     }
 
@@ -98,6 +126,34 @@ public  class TestingCameraActivity extends Activity {
         btnCamera=(ImageButton) findViewById(R.id.fab);
         btnPreviewImage=(ImageButton) findViewById(R.id.btnFlash);
         image=(ImageView) findViewById(R.id.image);
+        zoomBar=(SeekBar) findViewById(R.id.zoomBar);
+        layout=(LinearLayout) findViewById(R.id.cam_layout);
+        btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
+
+
+
+        zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b)
+            {
+                Log.d(ZOOM, "onProgress Change");
+                customCameraParam.setZoom(seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+                Log.d(ZOOM,"onSTARTTrackiing");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                Log.d(ZOOM,"onStopTracking");
+                customCamera.setParameters(customCameraParam);
+            }
+        });
+
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
         btnPreviewImage.setEnabled(false);
@@ -112,6 +168,7 @@ public  class TestingCameraActivity extends Activity {
         customCameraParam.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         customCameraParam.setJpegQuality(100);
         customCamera.setParameters(customCameraParam);
+        zoomBar.setMax(customCameraParam.getMaxZoom());
 }
 
 
@@ -147,12 +204,14 @@ public  class TestingCameraActivity extends Activity {
 
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
         InitializeCamera();
         InitializeCameraPreview();
         btnPreviewImage.setEnabled(false);
         btnCamera.setEnabled(true);
+        if(zoomBar==null)Log.d("y","yatta");
     }
 
     @Override
@@ -162,4 +221,20 @@ public  class TestingCameraActivity extends Activity {
     }
 
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_VOLUME_UP)
+        {
+            //zoom up
+            customCameraParam.setFlashMode("torch");
+            customCamera.setParameters(customCameraParam);
+        }
+        if(keyCode==KeyEvent.KEYCODE_VOLUME_DOWN)
+        {
+            //zoom down
+            customCameraParam.setFlashMode("off");
+            customCamera.setParameters(customCameraParam);
+        }
+        return false;
+    }
 }
