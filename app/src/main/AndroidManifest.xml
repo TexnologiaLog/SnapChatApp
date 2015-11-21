@@ -6,9 +6,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <uses-feature android:name="android.hardware.camera" />
-
-
 
     <activity android:name="com.example.barcode.CatalogActivity" />
 
@@ -21,8 +20,8 @@
         <activity
             android:name=".MainActivity"
             android:label="SnapChatApp"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,13 +40,19 @@
         </activity>
         <activity
             android:name=".PhotoPreview"
-            android:theme="@style/AlertDialog.AppCompat"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AlertDialog.AppCompat" >
         </activity>
-        <activity
+
+         <activity
             android:name=".TestingCameraActivity"
             android:theme="@style/AlertDialog.AppCompat"
             android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 
