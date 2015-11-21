@@ -51,6 +51,7 @@
                 android:id="@+id/btnFrontCam"
                 android:src="@drawable/ic_camera_front_grey600_48dp"
                 android:layout_gravity="right|top" />
+<<<<<<< HEAD
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -59,6 +60,8 @@
                 android:text="LogOut"
                 android:id="@+id/btnLogout"
                 android:layout_gravity="left|bottom" />
+=======
+>>>>>>> origin/developing
         </FrameLayout>
 
 

@@ -31,6 +31,8 @@ public  class TestingCameraActivity extends Activity {
 
     private static final String TAG ="Debug" ;
     private static final String PICTURE_TAKEN ="Picture" ;
+    private static final String ZOOM ="ZOOM" ;
+    private static  int zoom =10 ;
     private  static   Camera customCamera=null;
     private Camera.Parameters customCameraParam;
     private SurfaceView camPreview;
@@ -41,9 +43,12 @@ public  class TestingCameraActivity extends Activity {
     private SeekBar zoomBar;
     LinearLayout layout;
     private ImageButton btnFrontCamera;
+<<<<<<< HEAD
     private static int currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private Button btnLogout;
 
+=======
+>>>>>>> origin/developing
 
 
     @Override
@@ -77,7 +82,6 @@ public  class TestingCameraActivity extends Activity {
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -85,6 +89,16 @@ public  class TestingCameraActivity extends Activity {
         blowup.inflate(R.menu.settings_menu, menu);
         return true;
 
+<<<<<<< HEAD
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater blowup=getMenuInflater();
+        blowup.inflate(R.menu.settings_menu, menu);
+        return true;
+
+=======
+>>>>>>> origin/developing
     }
 
 
@@ -119,8 +133,13 @@ public  class TestingCameraActivity extends Activity {
                 btnCamera.setEnabled(false);
                 preview.removeView(btnPreviewImage);
                 preview.addView(btnPreviewImage);
+<<<<<<< HEAD
                 preview.removeView(zoomBar);
 
+=======
+
+                preview.removeView(zoomBar);
+>>>>>>> origin/developing
             }
         });
     }
@@ -142,6 +161,7 @@ public  class TestingCameraActivity extends Activity {
         preview.addView(zoomBar);
 
 
+<<<<<<< HEAD
         preview.removeView(btnFrontCamera);
         preview.addView(btnFrontCamera);
 
@@ -193,6 +213,10 @@ public  class TestingCameraActivity extends Activity {
         tmp.setUserLoggedIn(false);
         if(tmp.getUserLoggedIn()) return false;
         return true;
+=======
+
+
+>>>>>>> origin/developing
     }
 
 
@@ -205,9 +229,37 @@ public  class TestingCameraActivity extends Activity {
         zoomBar=(SeekBar) findViewById(R.id.zoomBar);
         layout=(LinearLayout) findViewById(R.id.cam_layout);
         btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
+<<<<<<< HEAD
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
 
+=======
+
+
+
+        zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b)
+            {
+                Log.d(ZOOM, "onProgress Change");
+                customCameraParam.setZoom(seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+                Log.d(ZOOM,"onSTARTTrackiing");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                Log.d(ZOOM,"onStopTracking");
+                customCamera.setParameters(customCameraParam);
+            }
+        });
+
+>>>>>>> origin/developing
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
         btnPreviewImage.setEnabled(false);
@@ -222,10 +274,16 @@ public  class TestingCameraActivity extends Activity {
         customCameraParam=customCamera.getParameters();
         customCameraParam.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         customCameraParam.setJpegQuality(100);
+<<<<<<< HEAD
         zoomBar.setMax(customCameraParam.getMaxZoom());
         if(currentCameraId==Camera.CameraInfo.CAMERA_FACING_BACK) customCamera.setParameters(customCameraParam);
         zoomBar.setMax(customCameraParam.getMaxZoom());
     }
+=======
+        customCamera.setParameters(customCameraParam);
+        zoomBar.setMax(customCameraParam.getMaxZoom());
+}
+>>>>>>> origin/developing
 
 
     public static Camera getCameraInstance(){
@@ -282,6 +340,7 @@ public  class TestingCameraActivity extends Activity {
         InitializeCameraPreview();
         btnPreviewImage.setEnabled(false);
         btnCamera.setEnabled(true);
+        if(zoomBar==null)Log.d("y","yatta");
     }
 
     @Override

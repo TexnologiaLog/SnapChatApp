@@ -11,7 +11,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     Button bLogout;
     EditText etName;
+<<<<<<< HEAD
     public static UserLocalStore userLocalStore;
+=======
+    UserLocalStore userLocalStore;
+>>>>>>> origin/developing
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

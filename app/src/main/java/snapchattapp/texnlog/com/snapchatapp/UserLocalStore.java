@@ -11,7 +11,11 @@ import android.content.SharedPreferences;
 public class UserLocalStore {
 
     public static final  String SP_NAME ="userDetails";
+<<<<<<< HEAD
      SharedPreferences userLocalDatabase;
+=======
+    SharedPreferences userLocalDatabase;
+>>>>>>> origin/developing
 
     public UserLocalStore(Context context){
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
