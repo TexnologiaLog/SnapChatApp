@@ -1,0 +1,22 @@
+ul {
+	background:#C0C0C0;
+	padding:0px 10px;
+	list-style:none;
+	position:relative;
+	display:inline-table;	
+}
+body{
+	background-color:#ccc;
+}
+ul li a{
+	display:block;
+	padding: 15px 20px;
+	color:#757575;
+	text-decoration:none;
+}
+ul li:hover{
+	background:#48D1CC;
+}
+.child{
+	border-bottom:1px solid #000;
+}
