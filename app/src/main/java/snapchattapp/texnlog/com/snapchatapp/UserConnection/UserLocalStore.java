@@ -1,4 +1,4 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +11,9 @@ import android.content.SharedPreferences;
 public class UserLocalStore {
 
     public static final  String SP_NAME ="userDetails";
+
     SharedPreferences userLocalDatabase;
+
 
     public UserLocalStore(Context context){
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);

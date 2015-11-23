@@ -17,8 +17,10 @@
         android:label="SnapChatApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".TestingCameraActivity"
+        <activity android:name=".UserConnection.MainActivity"
+/>
+  <activity          android:name=".Camera.TestingCameraActivity"
+
             android:label="SnapChatApp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -29,29 +31,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".register"
+            android:name=".UserConnection.register"
             android:label="@string/title_activity_rgister"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".login"
+            android:name=".UserConnection.login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".PhotoPreview"
+            android:name=".Camera.PhotoPreview"
             android:screenOrientation="portrait"
             android:theme="@style/AlertDialog.AppCompat" >
         </activity>
-        <!--
+
+
+
+
+
+>>>>>>> origin/developing
         <activity
-            android:name=".TestingCameraActivity"
-            android:theme="@style/AlertDialog.AppCompat"
-            android:screenOrientation="portrait">
-        </activity>
-        -->
-        <activity
-            android:name=".SettingsActivity"
+            android:name=".Camera.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

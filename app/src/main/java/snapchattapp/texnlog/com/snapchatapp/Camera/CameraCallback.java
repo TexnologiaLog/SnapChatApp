@@ -1,4 +1,4 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package snapchattapp.texnlog.com.snapchatapp.Camera;
 
 import android.app.Activity;
 import android.hardware.Camera;
