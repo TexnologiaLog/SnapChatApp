@@ -3,6 +3,12 @@
     package="snapchattapp.texnlog.com.snapchatapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
     <activity android:name="com.example.barcode.CatalogActivity" />
 
     <application
@@ -11,9 +17,10 @@
         android:label="SnapChatApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".MainActivity"
+
+        <activity android:name=".Camera.TestingCameraActivity"
             android:label="SnapChatApp"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +29,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".register"
+            android:name=".UserConnection.register"
             android:label="@string/title_activity_rgister"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".login"
+            android:name=".UserConnection.login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Camera.PhotoPreview"
+            android:screenOrientation="portrait"
+            android:theme="@style/AlertDialog.AppCompat" >
+        </activity>
+        <activity
+            android:name=".Camera.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".UserConnection.MainActivity"
+            android:label="Camera">
         </activity>
     </application>
 

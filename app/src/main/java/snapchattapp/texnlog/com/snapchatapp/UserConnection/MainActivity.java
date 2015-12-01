@@ -1,4 +1,4 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import snapchattapp.texnlog.com.snapchatapp.Camera.TestingCameraActivity;
+import snapchattapp.texnlog.com.snapchatapp.R;
+
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
     Button bLogout;
     EditText etName;
-    UserLocalStore userLocalStore;
+
+    public static UserLocalStore userLocalStore;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onStart() {
         super.onStart();
         if (authenticate() == true) {
-            displayUserName();
+            //displayUserName();
+            startActivity(new Intent(MainActivity.this,TestingCameraActivity.class));
         }else{
             startActivity(new Intent(MainActivity.this,login.class));
         }
@@ -53,7 +61,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             case R.id.bLogout:
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
-
                 startActivity(new Intent(this, login.class));
                 break;
         }

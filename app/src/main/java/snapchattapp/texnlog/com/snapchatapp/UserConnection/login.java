@@ -1,4 +1,4 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import snapchattapp.texnlog.com.snapchatapp.R;
 
 public class login extends AppCompatActivity implements View.OnClickListener{
 

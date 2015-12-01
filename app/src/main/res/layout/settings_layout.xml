@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <fragment
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:name="snapchattapp.texnlog.com.snapchatapp.fragments.Picture_size_fragment"
+        android:id="@+id/fragment"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.11" />
+</LinearLayout>

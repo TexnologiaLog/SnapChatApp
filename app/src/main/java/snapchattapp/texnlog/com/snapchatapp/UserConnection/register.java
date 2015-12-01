@@ -1,11 +1,14 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import snapchattapp.texnlog.com.snapchatapp.R;
 
 /**
  * Created by ΕΙΡΗΝΗ on 6/11/2015.
@@ -41,16 +44,21 @@ public class register extends AppCompatActivity implements View.OnClickListener 
             case R.id.bRegister:
 
                 String name = etName.getText().toString();
+                int age = Integer.parseInt(etAge.getText().toString());
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                int age = Integer.parseInt(etAge.getText().toString());
 
+                User us = new User(name, age,username,password);
+                accountValidator av = new accountValidator();
+                boolean accountValidationCheck = av.isRegisterValid(us);
 
-                User user = new User(name, age, username, password);
+                if(accountValidationCheck == true) {
+                    registerUser(us);
+                }
+                else{
+                    showErrorMessage();
+                }
 
-                registerUser(user);
-
-                break;
         }
     }
     private void registerUser(User user){
@@ -64,6 +72,13 @@ public class register extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    private void showErrorMessage(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(register.this);
+        dialogBuilder.setMessage("There are invalid characters. Please check the fields.");
+        dialogBuilder.setPositiveButton("Ok",null);
+        dialogBuilder.show();
+
+    }
 }
 
 
