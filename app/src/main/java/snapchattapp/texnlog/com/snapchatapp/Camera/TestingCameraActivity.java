@@ -45,7 +45,7 @@ public  class TestingCameraActivity extends Activity {
     private static int currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private Button btnLogout;
     private TestingCameraActivity instance;
-    private CameraState state;
+    
 
 
 
@@ -57,17 +57,12 @@ public  class TestingCameraActivity extends Activity {
         state=CameraState.getCameraState();
         InitializeButtons();
         SettingUpButtonListeners();
-        SettingsButtonAction();
+        
 
     }
 
 
-    private void SettingsButtonAction() {
-        Log.d(TAG, "geia xara");
-        Intent intent = new Intent(TestingCameraActivity.this, SettingsActivity.class);
-        startActivity(intent);
-    }
-
+    
 
 
 
@@ -125,7 +120,7 @@ public  class TestingCameraActivity extends Activity {
         layout=(LinearLayout) findViewById(R.id.cam_layout);
         btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
         btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnSettings=(ImageButton)findViewById(R.id.settings_button);
+        
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
         btnPreviewImage.setEnabled(false);
@@ -141,7 +136,7 @@ public  class TestingCameraActivity extends Activity {
         customCameraParam=customCamera.getParameters();
         customCameraParam.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         customCameraParam.setJpegQuality(100);
-        state.setCamera(customCamera);
+        
         zoomBar.setMax(customCameraParam.getMaxZoom());
         if(currentCameraId==Camera.CameraInfo.CAMERA_FACING_BACK) customCamera.setParameters(customCameraParam);
 }
