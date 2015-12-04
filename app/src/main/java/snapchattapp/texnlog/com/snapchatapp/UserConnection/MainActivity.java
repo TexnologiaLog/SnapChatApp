@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import snapchattapp.texnlog.com.snapchatapp.Camera.TestingCameraActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
-import snapchattapp.texnlog.com.snapchatapp.UploadImg.Upload;
+
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         super.onStart();
         if (authenticate() == true) {
             //displayUserName();
-            //startActivity(new Intent(MainActivity.this,TestingCameraActivity.class));
-            startActivity(new Intent(MainActivity.this,Upload.class));
+            startActivity(new Intent(MainActivity.this,TestingCameraActivity.class));
         }else{
             startActivity(new Intent(MainActivity.this,login.class));
         }

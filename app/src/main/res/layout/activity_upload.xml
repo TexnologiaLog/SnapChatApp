@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="snapchattapp.texnlog.com.snapchatapp.UploadImg.Upload">
+    tools:context=".UploadImg.Upload">
 
     <LinearLayout
         android:orientation="vertical"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/camera"
-            android:text="Capture Image" />
+            android:text="Capture New Image" />
 
     </LinearLayout>
 

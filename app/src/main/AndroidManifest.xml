@@ -31,16 +31,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".UploadImg.Upload"
-            android:label="SnapChatApp"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".UserConnection.register"
@@ -62,7 +52,9 @@
             android:label="Camera"></activity>
         <activity
             android:name=".UploadImg.Upload"
-            android:label="@string/title_activity_upload"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat" >
+        </activity>
     </application>
 
 </manifest>
