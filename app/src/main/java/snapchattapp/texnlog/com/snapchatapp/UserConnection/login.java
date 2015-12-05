@@ -1,4 +1,4 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import snapchattapp.texnlog.com.snapchatapp.R;
 
 public class login extends AppCompatActivity implements View.OnClickListener{
 
@@ -42,10 +44,9 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-
                 User user = new User (username, password);
 
-
+                authenticate(user);
 
                 break;
 
@@ -56,7 +57,28 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         }
 
     }
+    private  void authenticate(User user){
+        ServerRequests serverRequests = new ServerRequests(this);
+        serverRequests.fetchUserDataInBackground(user, new GetUserCallback() {
+            @Override
+            public void done(User returnedUser) {
+                if (returnedUser == null) {
+                    showErrorMessage();
+                } else {
+                    logUserIn(returnedUser);
+                }
 
+            }
+        });
+    }
+
+    private void showErrorMessage(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(login.this);
+        dialogBuilder.setMessage("Incorrect user details");
+        dialogBuilder.setPositiveButton("Ok",null);
+        dialogBuilder.show();
+
+    }
 
 
     private void logUserIn(User returnedUser){
