@@ -68,8 +68,14 @@
                 android:id="@+id/settings_button"
                 android:layout_gravity="right|bottom"
                 android:src="@drawable/ic_settings_black_24dp"/>
-            =======
->>>>>>> origin/developing
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Users"
+                android:id="@+id/btnUsers"
+                android:layout_marginBottom="50dp"
+                android:layout_gravity="left|bottom" />
         </FrameLayout>
 
 

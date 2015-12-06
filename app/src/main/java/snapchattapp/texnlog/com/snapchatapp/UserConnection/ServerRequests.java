@@ -124,6 +124,7 @@ public class ServerRequests {
                 String result = EntityUtils.toString(entity);
                 JSONObject JObject = new JSONObject(result);
 
+
                 if (JObject.length() == 0) {
                     returnedUser = null;
                 }else{

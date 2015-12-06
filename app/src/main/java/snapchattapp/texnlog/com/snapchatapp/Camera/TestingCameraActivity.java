@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.UsersScreenActivity;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.MainActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
@@ -45,8 +46,7 @@ public  class TestingCameraActivity extends Activity {
     private static int currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private Button btnLogout;
     private TestingCameraActivity instance;
-    
-
+    private Button btnUsers;
 
 
     @Override
@@ -54,7 +54,7 @@ public  class TestingCameraActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_layout);
-        state=CameraState.getCameraState();
+        //state=CameraState.getCameraState();
         InitializeButtons();
         SettingUpButtonListeners();
         
@@ -90,8 +90,13 @@ public  class TestingCameraActivity extends Activity {
         preview.removeView(btnLogout);
         preview.addView(btnLogout);
 
-        preview.removeView(btnSettings);
-        preview.addView(btnSettings);
+        btnLogout.setEnabled(false);
+
+        //preview.removeView(btnSettings);
+        //preview.addView(btnSettings);
+
+        preview.removeView(btnUsers);
+        preview.addView(btnUsers);
 
 
     }
@@ -120,6 +125,7 @@ public  class TestingCameraActivity extends Activity {
         layout=(LinearLayout) findViewById(R.id.cam_layout);
         btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
         btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnUsers=(Button) findViewById(R.id.btnUsers);
         
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
@@ -316,6 +322,13 @@ public  class TestingCameraActivity extends Activity {
 
                     preview.removeView(zoomBar);
 
+                }
+            });
+
+            btnUsers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(TestingCameraActivity.this, UsersScreenActivity.class));
                 }
             });
         }
