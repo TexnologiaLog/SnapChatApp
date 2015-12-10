@@ -23,6 +23,9 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.FriendsScreenActivity;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.SearchScreenActivity;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.UserProfileScreen;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.MainActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
@@ -35,7 +38,7 @@ public  class TestingCameraActivity extends Activity {
     private  static   Camera customCamera=null;
     private Camera.Parameters customCameraParam;
     private SurfaceView camPreview;
-    private ImageButton btnCamera,btnPreviewImage,btnSettings;
+    private ImageButton btnCamera,btnPreviewImage,btnSettings,btnLogout;;
     public static ImageView image;
     private File mediaStorageDir,mediaFile;
     private FrameLayout preview;
@@ -43,10 +46,8 @@ public  class TestingCameraActivity extends Activity {
     LinearLayout layout;
     private ImageButton btnFrontCamera;
     private static int currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
-    private Button btnLogout;
     private TestingCameraActivity instance;
-    private CameraState state;
-
+    private Button btnUsers;
 
 
     @Override
@@ -54,20 +55,15 @@ public  class TestingCameraActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_layout);
-        state=CameraState.getCameraState();
+        //state=CameraState.getCameraState();
         InitializeButtons();
         SettingUpButtonListeners();
-        SettingsButtonAction();
+        
 
     }
 
 
-    private void SettingsButtonAction() {
-        Log.d(TAG, "geia xara");
-        Intent intent = new Intent(TestingCameraActivity.this, SettingsActivity.class);
-        startActivity(intent);
-    }
-
+    
 
 
 
@@ -95,8 +91,12 @@ public  class TestingCameraActivity extends Activity {
         preview.removeView(btnLogout);
         preview.addView(btnLogout);
 
-        preview.removeView(btnSettings);
-        preview.addView(btnSettings);
+
+        //preview.removeView(btnSettings);
+        //preview.addView(btnSettings);
+
+        preview.removeView(btnUsers);
+        preview.addView(btnUsers);
 
 
     }
@@ -124,8 +124,9 @@ public  class TestingCameraActivity extends Activity {
         zoomBar=(SeekBar) findViewById(R.id.zoomBar);
         layout=(LinearLayout) findViewById(R.id.cam_layout);
         btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnSettings=(ImageButton)findViewById(R.id.settings_button);
+        btnLogout = (ImageButton) findViewById(R.id.btnLogout);
+        btnUsers=(Button) findViewById(R.id.btnUsers);
+        
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
         btnPreviewImage.setEnabled(false);
@@ -141,7 +142,7 @@ public  class TestingCameraActivity extends Activity {
         customCameraParam=customCamera.getParameters();
         customCameraParam.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         customCameraParam.setJpegQuality(100);
-        state.setCamera(customCamera);
+        
         zoomBar.setMax(customCameraParam.getMaxZoom());
         if(currentCameraId==Camera.CameraInfo.CAMERA_FACING_BACK) customCamera.setParameters(customCameraParam);
 }
@@ -321,6 +322,13 @@ public  class TestingCameraActivity extends Activity {
 
                     preview.removeView(zoomBar);
 
+                }
+            });
+
+            btnUsers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(TestingCameraActivity.this, UserProfileScreen.class));
                 }
             });
         }
