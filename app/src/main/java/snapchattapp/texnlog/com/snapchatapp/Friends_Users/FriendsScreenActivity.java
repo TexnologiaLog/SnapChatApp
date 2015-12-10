@@ -2,7 +2,7 @@ package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,14 +14,17 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.GetDataFromDatabaseAsyncTask;
 import snapchattapp.texnlog.com.snapchatapp.R;
+import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
 
 public class FriendsScreenActivity extends AppCompatActivity {
-    public static final String TABLE_TO_FILL = "user";
-    private Button btnGetData;
-    private FragmentManager fragmentManager;
+    public  static  String USER_ID =null; /// Change it after login fix
     private static ListView listview;
     private static Context context;
+    private Button btnSearch,btnProfile;
+    String SP_NAME ="userDetails";
+    SharedPreferences userLocalDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +32,27 @@ public class FriendsScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends_screen);
         Log.d("DO", "OnCreateFriendsActivity");
 
-        btnGetData = (Button) findViewById(R.id.btnGetData1);
-        listview = (ListView) findViewById(R.id.listView);
+        btnProfile = (Button) findViewById(R.id.btnFriendsScreenProfile);
+        btnSearch = (Button) findViewById(R.id.btnFriendsScreenSearch);
+        listview = (ListView) findViewById(R.id.listFriendsScreen);
         context = getBaseContext();
 
-        btnGetData.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new GetDataFromDatabaseAsyncTask(FriendsScreenActivity.this, TABLE_TO_FILL).execute();
+               startActivity(new Intent(getApplicationContext(),UserProfileScreen.class));
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(context,SearchScreenActivity.class));
             }
         });
 
@@ -54,7 +70,11 @@ public class FriendsScreenActivity extends AppCompatActivity {
 
     public boolean updateUI()
     {
-        new GetDataFromDatabaseAsyncTask(FriendsScreenActivity.this, TABLE_TO_FILL).execute();
+        userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
+        UserLocalStore localStore=new UserLocalStore(context);
+        Users user=localStore.getLoggedInUser();
+        USER_ID=user.getC_id();
+        new GetDataFromDatabaseAsyncTask(FriendsScreenActivity.this,USER_ID).execute();
         return true;
     }
 
@@ -62,10 +82,8 @@ public class FriendsScreenActivity extends AppCompatActivity {
     public  static void addListData(final ArrayList<Users> ls)
     {
 
-        ArrayList<String> values=new ArrayList<String>();
-        for(int i=0;i<ls.size();i++) values.add(ls.get(i).getC_name());
 
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line,values);
+        ArrayAdapter<Users> adapter=new ListViewAdapter(context,ls,0);
 
         listview.setAdapter(adapter);
 

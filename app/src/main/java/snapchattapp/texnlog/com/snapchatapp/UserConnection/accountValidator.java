@@ -8,7 +8,7 @@ public class accountValidator {
 
     //Method that calls the rest of the account checks and reports its results to register.
     public boolean isRegisterValid(User user){
-        boolean ageCheck = isAgeValid(user.age);
+        boolean ageCheck = isAgeValid(Integer.parseInt(user.age));
         if(ageCheck == false)
             return false;
 

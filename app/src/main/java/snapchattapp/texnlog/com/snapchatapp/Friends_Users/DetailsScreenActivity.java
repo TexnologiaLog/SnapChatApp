@@ -3,15 +3,22 @@ package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.AddFriendToRemoteAsyncTask;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.DeleteFriendFromRemoteAsyncTask;
 import snapchattapp.texnlog.com.snapchatapp.R;
 
 /**
@@ -21,8 +28,7 @@ import snapchattapp.texnlog.com.snapchatapp.R;
 
 public class DetailsScreenActivity extends Activity
 {
-    public static final String TABLE_FRIENDS = "user";
-    public static final String TABLE_USERS = "friends";
+    public static final String TABLE_FRIENDS = SQliteHandlerClass.TABLE_FRIENDS;
     TextView textView;
     TextView textView1;
     TextView textView2;
@@ -30,6 +36,8 @@ public class DetailsScreenActivity extends Activity
 
     Button btnAddFriend;
     Button btnRemoveFriend;
+    ArrayList<Users> usersArrayList;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +45,15 @@ public class DetailsScreenActivity extends Activity
         setContentView(R.layout.details);
         Intent intent=getIntent();
         savedInstanceState= intent.getExtras();
-        ArrayList<Users> usersArrayList= (ArrayList<Users>) savedInstanceState.getSerializable("data");
+
+        usersArrayList= (ArrayList<Users>) savedInstanceState.getSerializable("data");
         int position=savedInstanceState.getInt("id");
 
         textView= (TextView) findViewById(R.id.txtData);
         textView1= (TextView) findViewById(R.id.txtFirstName);
         textView2= (TextView) findViewById(R.id.txtLasstName);
         textView3= (TextView) findViewById(R.id.txtAge);
+        imageView= (ImageView) findViewById(R.id.imageViewDetails);
 
         btnAddFriend=(Button) findViewById(R.id.btnAddFriend);
         btnRemoveFriend=(Button) findViewById(R.id.btnRemoveFriend);
@@ -53,6 +63,13 @@ public class DetailsScreenActivity extends Activity
         textView1.setText(usersArrayList.get(position).getC_name());
         textView2.setText(usersArrayList.get(position).getC_id());
         textView3.setText(usersArrayList.get(position).getC_age());
+        try {
+            FileInputStream fis=openFileInput(usersArrayList.get(position).getC_username());
+            Bitmap bit= BitmapFactory.decodeStream(fis);
+            imageView.setImageBitmap(bit);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
         setUpButtonListeners();
@@ -69,7 +86,7 @@ public class DetailsScreenActivity extends Activity
                     if (checkIfExists(user, TABLE_FRIENDS))
                     {
                         Toast.makeText(DetailsScreenActivity.this, "Friend Already Exists", Toast.LENGTH_SHORT).show();
-                        Log.d("DATABASE", WebService.getUsersFromLocalDatabase(getApplicationContext(), "user").toString());
+                        Log.d("DATABASE", WebService.getUsersFromLocalDatabase(getApplicationContext(), TABLE_FRIENDS).toString());
                     }
                     else
                     {
@@ -128,11 +145,11 @@ public class DetailsScreenActivity extends Activity
                break;
            case "add": Log.d("Button", "add");
 
-               Users tmpUser=WebService.getUser(user, TABLE_USERS);
+               Users tmpUser=usersArrayList.get(0);
                ArrayList<Users> tempList=new ArrayList<Users>();
                tempList.add(tmpUser);
                WebService.addDataToLocalDatabase(getApplicationContext(), tempList, table);
-               new AddFriendToRemoteAsyncTask(tmpUser.getC_id()).execute();
+               new AddFriendToRemoteAsyncTask(tmpUser.getC_id(),FriendsScreenActivity.USER_ID).execute();
 
                return true;
        }

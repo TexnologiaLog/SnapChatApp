@@ -1,8 +1,10 @@
-package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
+package snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask;
 
 import android.os.AsyncTask;
 
 import java.io.IOException;
+
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.WebService;
 
 /**
  * Created by SoRa1 on 5/12/2015.

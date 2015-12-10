@@ -44,11 +44,11 @@ public class register extends AppCompatActivity implements View.OnClickListener 
             case R.id.bRegister:
 
                 String name = etName.getText().toString();
-                int age = Integer.parseInt(etAge.getText().toString());
+                int  age = Integer.parseInt(etAge.getText().toString());
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                User us = new User(name, age,username,password);
+                User us = new User(null,name,String.valueOf(age),username,password,null);
                 accountValidator av = new accountValidator();
                 boolean accountValidationCheck = av.isRegisterValid(us);
 

@@ -1,5 +1,7 @@
 package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -7,16 +9,18 @@ import java.io.Serializable;
  */
 public class Users implements Serializable
 {
-    private String c_id, c_name,c_age,c_username,c_password;
+    private String c_id, c_name,c_age,c_username,c_password,c_photoPath;
+    private Bitmap personalImage;
 
     public Users(){}
 
-    public Users(String c_id, String c_name, String c_age, String c_username, String c_password) {
+    public Users(String c_id, String c_name, String c_age, String c_username, String c_password,String c_photoPath) {
         this.c_id = c_id;
         this.c_name = c_name;
         this.c_age = c_age;
         this.c_username = c_username;
         this.c_password = c_password;
+        this.c_photoPath= c_photoPath;
     }
 
     @Override
@@ -27,11 +31,17 @@ public class Users implements Serializable
 
     //Get and Set methods
 
+    public void setC_UserImage(Bitmap image){personalImage=image;}
 
+    public Bitmap getC_UserImage(){return personalImage;}
 
     public String getC_password() {return c_password;}
 
     public void setC_password(String c_password) {this.c_password = c_password;}
+
+    public String getC_photoPath() {return c_photoPath;}
+
+    public void setC_photoPath(String c_photoPath) {this.c_photoPath = c_photoPath;}
 
     public String getC_id() {return c_id;}
 

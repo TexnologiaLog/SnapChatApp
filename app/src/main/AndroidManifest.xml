@@ -19,8 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-   <!-- <activity android:name=".UserConnection.MainActivity" !-->
-        <activity android:name=".Camera.TestingCameraActivity"
+
+       <!-- <activity android:name=".Camera.TestingCameraActivity" /> !-->
+          <!--  <activity android:name=".Friends_Users.FriendsScreenActivity" !-->
+        <activity android:name=".UserConnection.MainActivity"
             android:label="SnapChatApp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -45,18 +47,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/AlertDialog.AppCompat" >
         </activity>
+
         <activity
-            android:name=".Friends_Users.UsersScreenActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".Friends_Users.FriendsScreenActivity"
+            android:name=".Friends_Users.SearchScreenActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Friends_Users.DetailsScreenActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".Friends_Users.FriendsScreenActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Friends_Users.UserProfileScreen"
+            android:screenOrientation="portrait"/>
+
         <!--<activity
             android:name=".Camera.SettingsActivity"
             android:label="@string/title_activity_settings" >
@@ -68,11 +74,11 @@
             android:label="Camera">
         </activity>
         !-->
-        <!--
+
         <activity
             android:name=".Camera.TestingCameraActivity">
         </activity>
-         !-->
+
     </application>
 
 </manifest>

@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="720dp"
         android:layout_height="144dp"
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewDetails"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/error_404" />
 

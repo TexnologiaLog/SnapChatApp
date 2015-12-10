@@ -23,7 +23,9 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
-import snapchattapp.texnlog.com.snapchatapp.Friends_Users.UsersScreenActivity;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.FriendsScreenActivity;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.SearchScreenActivity;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.UserProfileScreen;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.MainActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
@@ -36,7 +38,7 @@ public  class TestingCameraActivity extends Activity {
     private  static   Camera customCamera=null;
     private Camera.Parameters customCameraParam;
     private SurfaceView camPreview;
-    private ImageButton btnCamera,btnPreviewImage,btnSettings;
+    private ImageButton btnCamera,btnPreviewImage,btnSettings,btnLogout;;
     public static ImageView image;
     private File mediaStorageDir,mediaFile;
     private FrameLayout preview;
@@ -44,7 +46,6 @@ public  class TestingCameraActivity extends Activity {
     LinearLayout layout;
     private ImageButton btnFrontCamera;
     private static int currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
-    private Button btnLogout;
     private TestingCameraActivity instance;
     private Button btnUsers;
 
@@ -90,7 +91,6 @@ public  class TestingCameraActivity extends Activity {
         preview.removeView(btnLogout);
         preview.addView(btnLogout);
 
-        btnLogout.setEnabled(false);
 
         //preview.removeView(btnSettings);
         //preview.addView(btnSettings);
@@ -124,7 +124,7 @@ public  class TestingCameraActivity extends Activity {
         zoomBar=(SeekBar) findViewById(R.id.zoomBar);
         layout=(LinearLayout) findViewById(R.id.cam_layout);
         btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnLogout = (ImageButton) findViewById(R.id.btnLogout);
         btnUsers=(Button) findViewById(R.id.btnUsers);
         
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
@@ -328,7 +328,7 @@ public  class TestingCameraActivity extends Activity {
             btnUsers.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(TestingCameraActivity.this, UsersScreenActivity.class));
+                    startActivity(new Intent(TestingCameraActivity.this, UserProfileScreen.class));
                 }
             });
         }
