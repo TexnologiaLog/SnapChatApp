@@ -104,7 +104,7 @@ public class Upload extends  AppCompatActivity implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... params) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            image.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
             String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT);
 
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();

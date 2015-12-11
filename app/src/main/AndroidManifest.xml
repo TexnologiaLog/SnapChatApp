@@ -45,9 +45,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AlertDialog.AppCompat"></activity>
         <activity
-            android:name=".Camera.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
-        <activity
             android:name=".UserConnection.MainActivity"
             android:label="Camera"></activity>
         <activity
