@@ -1,142 +1,154 @@
 package snapchattapp.texnlog.com.snapchatapp.UploadImg;
 
 
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.HashMap;
 
-import snapchattapp.texnlog.com.snapchatapp.Camera.TestingCameraActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
 
-
 /**
- * Created by Charis on 3/12/2015.
+ * Created by Charis on 11/12/2015.
  */
 
-public class Upload extends  AppCompatActivity implements View.OnClickListener {
 
-    private static final int RESULT_LOAD_IMAGE =1 ;
-    private static final String SERVER_ADDRESS = "http://projectdb.esy.es/";
+public class Upload extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView imageToUpload;
-    Button bUploadImage, bcamera;
-    EditText upLoadImageName;
+    public static final String UPLOAD_URL = "http://projectdb.esy.es/upload.php";
+    public static final String UPLOAD_KEY = "image";
+    public static final String TAG = "MY MESSAGE";
+
+    private int RESULT_LOAD_IMAGE = 1;
+
+    private Button buttonChoose;
+    private Button buttonUpload;
+    private Button buttonView;
 
 
+    private ImageView imageView;
+
+    private Bitmap bitmap;
+
+    private Uri filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        imageToUpload = (ImageView) findViewById(R.id.imageToUpload);
-        bUploadImage= (Button) findViewById(R.id.bUploadImage);
-        upLoadImageName = (EditText) findViewById(R.id.etUpLoadName);
-        bcamera = (Button) findViewById(R.id.camera);
 
-        imageToUpload.setOnClickListener(this);
-        bUploadImage.setOnClickListener(this);
-        bcamera.setOnClickListener(this);
+        buttonChoose = (Button) findViewById(R.id.buttonChoose);
+        buttonUpload = (Button) findViewById(R.id.buttonUpload);
+        buttonView   = (Button) findViewById(R.id.buttonView);
 
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+        buttonChoose.setOnClickListener(this);
+        buttonUpload.setOnClickListener(this);
+        buttonView.setOnClickListener(this);
+    }
+
+    private void showFileChooser() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+
+    }
+
+    private void ViewPage(){
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse("http://projectdb.esy.es/PhUpload.php"));
+        startActivity(intent);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            filePath = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    private void uploadImage(){
+        class UploadImage extends AsyncTask<Bitmap,Void,String>{
+
+            ProgressDialog loading;
+            RequestHandler rh = new RequestHandler();
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(Upload.this, "Uploading Image", "Please wait...",true,true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(Bitmap... params) {
+                Bitmap bitmap = params[0];
+                String uploadImage = getStringImage(bitmap);
+
+                HashMap<String,String> data = new HashMap<>();
+                data.put(UPLOAD_KEY, uploadImage);
+
+                String result = rh.sendPostRequest(UPLOAD_URL,data);
+
+                return result;
+            }
+        }
+
+        UploadImage ui = new UploadImage();
+        ui.execute(bitmap);
     }
 
     @Override
     public void onClick(View v) {
-
-        switch(v.getId()){
-            case R.id.imageToUpload:
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galleryIntent,RESULT_LOAD_IMAGE);
-                break;
-            case R.id.bUploadImage:
-                Bitmap image = ((BitmapDrawable) imageToUpload.getDrawable()).getBitmap();
-                new UploadImage(image, upLoadImageName.getText().toString()).execute();
-                break;
-            case R.id.camera:
-                startActivity(new Intent(Upload.this,TestingCameraActivity.class));
-                break;
-
+        if (v == buttonChoose) {
+            showFileChooser();
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data !=null){
-            Uri selectedImage = data.getData();
-            imageToUpload.setImageURI(selectedImage);
-
+        if(v == buttonUpload){
+            uploadImage();
         }
-    }
-
-    private class UploadImage extends AsyncTask<Void,Void,Void>{
-        Bitmap image;
-        String name;
-
-        public UploadImage(Bitmap image,String name){
-            this.image = image;
-            this.name = name;
+        if(v == buttonView){
+            ViewPage();
         }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
-            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT);
-
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("image",encodedImage));
-            dataToSend.add(new BasicNameValuePair("name",name));
-
-            HttpParams httpRequstParams = getHttpRequestParams();
-
-            HttpClient client = new DefaultHttpClient(httpRequstParams);
-            HttpPost post =new HttpPost(SERVER_ADDRESS + "upload.php");
-
-            try{
-                post.setEntity(new UrlEncodedFormEntity(dataToSend));
-                client.execute(post);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(getApplicationContext(),"Image Uploaded",Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private HttpParams getHttpRequestParams(){
-        HttpParams httpRequestParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(httpRequestParams, 1000 * 30);
-        HttpConnectionParams.setSoTimeout(httpRequestParams, 1000*30);
-        return httpRequestParams;
     }
 }
+
+
