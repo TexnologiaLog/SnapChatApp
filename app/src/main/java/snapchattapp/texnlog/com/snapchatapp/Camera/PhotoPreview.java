@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import snapchattapp.texnlog.com.snapchatapp.R;
+import snapchattapp.texnlog.com.snapchatapp.UploadImg.Upload;
+
 
 /**
  * Created by SoRa1 on 11/11/2015.
@@ -58,16 +60,22 @@ public class PhotoPreview extends Activity
     }
 
 
-    private void SetUpButtonListeners()
-    {
+    private void SetUpButtonListeners() {
         btnNewSnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class));
             }
         });
-    }
 
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Upload.class));
+
+            }
+        });
+    }
     @Override
     public void onBackPressed() {
         Toast.makeText(this,"Disabled Try New Snap",Toast.LENGTH_SHORT).show();
