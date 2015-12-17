@@ -86,7 +86,6 @@ public class GetDataFromDatabaseAsyncTask extends AsyncTask
         friendsArrayListFromJSON=webService.JSONtoArrayListData(jSONarrayFriendsFromDatabase);
 
         new SaveImagesLocal_ASYNC(friendsArrayListFromJSON,context).execute();
-        //friendsArrayListFromJSON=webService.DownloadPersonalImages(friendsArrayListFromJSON);
 
 
 

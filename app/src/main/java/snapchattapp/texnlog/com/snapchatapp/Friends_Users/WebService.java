@@ -1,7 +1,9 @@
 package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
 
+import android.content.ContentValues;
 import android.content.Context;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -170,6 +172,14 @@ public class   WebService
         reader.close();
         Log.d("WebServiceHttpRESPONSE",sb.toString());
         return sb.toString();
+    }
+
+    public static void updateLocalDatabase(String filename,String username)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put("personal_photo",filename); //These Fields should be your String values of actual column names
+        SQLiteDatabase db=sQliteHandlerClass.getWritableDatabase();
+        db.update(sQliteHandlerClass.TABLE_FRIENDS, cv, "username "+"= "+"'"+username+"'", null);
     }
 
 
