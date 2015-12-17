@@ -65,7 +65,7 @@ public class ListViewAdapter extends ArrayAdapter<Users>
             }
 
         }
-        else new AsyncTaskSearchFriendsImage(itemPhotoPath,imageView).execute();
+        else new AsyncTaskSearchFriendsImage(itemPhotoPath,imageView,getContext()).execute();
 
         txtUsername.setText(itemUsername);
         txtName.setText(itemName);

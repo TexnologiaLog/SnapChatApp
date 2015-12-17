@@ -25,7 +25,7 @@ public class SearchScreenActivity extends AppCompatActivity {
     private static ListView listview;
     private static Context context;
     private SearchView searchView;
-    private String DataToSend="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,7 +73,6 @@ public class SearchScreenActivity extends AppCompatActivity {
                 Log.d("SearchScreenActivity...QueryChange",newText);
 
 
-                DataToSend=null;
                 return false;
             }
         });
@@ -125,6 +124,7 @@ public class SearchScreenActivity extends AppCompatActivity {
 
                     intent.putExtra("data", ls);
                     intent.putExtra("id", position);
+                    intent.putExtra("request_code",1);
 
                     context.startActivity(intent);
                 }

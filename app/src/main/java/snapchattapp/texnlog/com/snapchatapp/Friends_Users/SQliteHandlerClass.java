@@ -56,7 +56,6 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
 
 
         db.execSQL(CREATE_FRIENDS_TABLE);
-       // db.close();
 
 
 
@@ -66,7 +65,6 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRIENDS);
         onCreate(db);
     }

@@ -23,11 +23,10 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
  */
 public class GetDataFromDatabaseAsyncTask extends AsyncTask
 {
-    private static final String GetUsersServiceURL ="http://192.168.1.4/android/ReadJSON.php";
-    private static final String GetFriendsServiceURL ="http://192.168.1.4/android/GetFriends.php";
-    //private static final String GetUsersServiceURL ="http://192.168.1.4/android/GetUsers.php";
-    //private static final String GetUsersServiceURL ="http://projectdb.esy.es/Android/ReadJSON.php";
-    //private static final String GetFriendsServiceURL ="http://projectdb.esy.es/Android/GetFriends.php";
+    //private static final String GetUsersServiceURL ="http://192.168.1.4/android/ReadJSON.php";
+    //private static final String GetFriendsServiceURL ="http://192.168.1.4/android/GetFriends.php";
+    private static final String GetUsersServiceURL ="http://projectdb.esy.es/Android/ReadJSON.php";
+    private static final String GetFriendsServiceURL ="http://projectdb.esy.es/Android/GetFriends.php";
     private static String userID;
     private ProgressDialog dialog;
     private static Context context;

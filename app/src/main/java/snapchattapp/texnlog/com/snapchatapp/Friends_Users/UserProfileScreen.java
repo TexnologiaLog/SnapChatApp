@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.IOException;
 
+import snapchattapp.texnlog.com.snapchatapp.Camera.TestingCameraActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.LoadProfileImageASYNC;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.UploadPersonalImage_ASYNC;
 import snapchattapp.texnlog.com.snapchatapp.R;
@@ -68,7 +69,7 @@ public class UserProfileScreen extends Activity
             @Override
             public void onClick(View view) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+                startActivityForResult(pickPhoto, 1);
             }
         });
 
@@ -76,7 +77,7 @@ public class UserProfileScreen extends Activity
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //new UploadPersonalImage_ASYNC(loggedInUser,"","").execute();
+                startActivity(new Intent(UserProfileScreen.this, TestingCameraActivity.class));
             }
         });
 

@@ -42,7 +42,8 @@ public class UploadPersonalImage_ASYNC extends AsyncTask
     private final Users user;
     private final WebService webService;
     private  ContentResolver contentResolver;
-    private String serverURL="http://192.168.1.4/android/tst.php";
+//    private String serverURL="http://192.168.1.4/android/tst.php";
+    private String serverURL="http://projectdb.esy.es/Android/UploadImage.php";
     private static UserLocalStore userLocalStore;
     private String username;
     Bitmap bit;
@@ -90,8 +91,8 @@ public class UploadPersonalImage_ASYNC extends AsyncTask
         catch (Exception e){e.printStackTrace();}
 
 
-        webService.updateLocalDatabase("http://192.168.1.4/android/upload/"+username+".JPG",username);
-
+//        webService.updateLocalDatabase("http://192.168.1.4/android/upload/"+username+".JPG",username);
+        webService.updateLocalDatabase("http://projectdb.esy.es/Android/upload/"+username+".JPG",username);
 
         return null;
     }

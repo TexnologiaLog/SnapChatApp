@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class LoadProfileImageASYNC extends AsyncTask {
     protected Object doInBackground(Object[] objects)
     {
         String serviceURL=user.getC_photoPath();
-
+        Log.d("LoadImage Async....user photo path",serviceURL);
         try
         {
             HttpURLConnection connection= (HttpURLConnection) new URL(serviceURL).openConnection();

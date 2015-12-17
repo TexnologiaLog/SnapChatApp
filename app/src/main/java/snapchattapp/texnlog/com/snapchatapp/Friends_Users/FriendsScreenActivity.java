@@ -97,6 +97,7 @@ public class FriendsScreenActivity extends AppCompatActivity {
 
                 intent.putExtra("data", ls);
                 intent.putExtra("id", position);
+                intent.putExtra("request_code",0);
 
                 context.startActivity(intent);
             }

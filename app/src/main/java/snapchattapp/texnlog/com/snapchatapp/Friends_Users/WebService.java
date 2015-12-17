@@ -32,10 +32,10 @@ public class   WebService
 {
     private static final int READ_TIMEOUT =10000 ;
     private static final int CONNECTION_TIMEOUT =10000;
-    public static final String ADD_FRIEND_URL = "http://192.168.1.4/android/AddFriend.php"; //Testing at localhost
-    public static final String DELETE_FRIEND_URL = "http://192.168.1.4/android/DeleteFriend.php";
-    //public static final String ADD_FRIEND_URL = "http://projectdb.esy.es/Android/AddFriend.php";  //Working on remote Database
-    //public static final String DELETE_FRIEND_URL = "http://projectdb.esy.es/Android/DeleteFriend.php";
+    //public static final String ADD_FRIEND_URL = "http://192.168.1.4/android/AddFriend.php"; //Testing at localhost
+    //public static final String DELETE_FRIEND_URL = "http://192.168.1.4/android/DeleteFriend.php";
+    public static final String ADD_FRIEND_URL = "http://projectdb.esy.es/Android/AddFriend.php";  //Working on remote Database
+    public static final String DELETE_FRIEND_URL = "http://projectdb.esy.es/Android/DeleteFriend.php";
     private static SQliteHandlerClass sQliteHandlerClass;
 
 

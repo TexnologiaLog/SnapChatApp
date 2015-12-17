@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.AddFriendToRemoteAsyncTask;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.DeleteFriendFromRemoteAsyncTask;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.LoadImageInDetailsActivityASYNC;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.LoadProfileImageASYNC;
 import snapchattapp.texnlog.com.snapchatapp.R;
 
 /**
@@ -29,15 +31,19 @@ import snapchattapp.texnlog.com.snapchatapp.R;
 public class DetailsScreenActivity extends Activity
 {
     public static final String TABLE_FRIENDS = SQliteHandlerClass.TABLE_FRIENDS;
+    private final int FRIEND_PHOTO_REQUEST=0;
+    private final int NOT_FRIEND_PHOTO_REQUEST=1;
     TextView textView;
     TextView textView1;
     TextView textView2;
     TextView textView3;
 
+
     Button btnAddFriend;
     Button btnRemoveFriend;
     ArrayList<Users> usersArrayList;
     private ImageView imageView;
+    private int requestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,7 @@ public class DetailsScreenActivity extends Activity
 
         usersArrayList= (ArrayList<Users>) savedInstanceState.getSerializable("data");
         int position=savedInstanceState.getInt("id");
-
+        requestCode=savedInstanceState.getInt("request_code");
         textView= (TextView) findViewById(R.id.txtData);
         textView1= (TextView) findViewById(R.id.txtFirstName);
         textView2= (TextView) findViewById(R.id.txtLasstName);
@@ -63,13 +69,16 @@ public class DetailsScreenActivity extends Activity
         textView1.setText(usersArrayList.get(position).getC_name());
         textView2.setText(usersArrayList.get(position).getC_id());
         textView3.setText(usersArrayList.get(position).getC_age());
-        try {
-            FileInputStream fis=openFileInput(usersArrayList.get(position).getC_username());
-            Bitmap bit= BitmapFactory.decodeStream(fis);
-            imageView.setImageBitmap(bit);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if(requestCode==FRIEND_PHOTO_REQUEST) {
+            try {
+                FileInputStream fis = openFileInput(usersArrayList.get(position).getC_username());
+                Bitmap bit = BitmapFactory.decodeStream(fis);
+                imageView.setImageBitmap(bit);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
+        if(requestCode==NOT_FRIEND_PHOTO_REQUEST) new LoadImageInDetailsActivityASYNC(usersArrayList.get(position).getC_photoPath(),imageView,getApplicationContext()).execute();
 
 
         setUpButtonListeners();

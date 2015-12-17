@@ -20,8 +20,8 @@ import snapchattapp.texnlog.com.snapchatapp.Friends_Users.WebService;
  * Created by SoRa1 on 9/12/2015.
  */
 public class AsyncTaskSearchFriends extends AsyncTask {
-    public static final String GET_USERS_SERVICE_URL = "http://192.168.1.4/android/GetUsers.php"; //Testing at localhost
-    // public static final String GET_USERS_SERVICE_URL = "http://projectdb.esy.es/Android/GetUsers.php"; //Working at remote database
+    //public static final String GET_USERS_SERVICE_URL = "http://192.168.1.4/android/GetUsers.php"; //Testing at localhost
+     public static final String GET_USERS_SERVICE_URL = "http://projectdb.esy.es/Android/GetUsers.php"; //Working at remote database
     private final String query;
     private String DataToSend="";
     ArrayList<Users> users;
