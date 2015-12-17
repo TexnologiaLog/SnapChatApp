@@ -77,7 +77,7 @@ public class UserProfileScreen extends Activity
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserProfileScreen.this, TestingCameraActivity.class));
+                onBackPressed();
             }
         });
 
