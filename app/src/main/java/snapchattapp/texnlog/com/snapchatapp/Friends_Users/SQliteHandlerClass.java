@@ -18,7 +18,7 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
     private static  String USER_ID;
-    public static final String TABLE_FRIENDS = "friends"+USER_ID;
+    public static  String TABLE_FRIENDS ;
     private static final String DATABASE_NAME = "testing";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
@@ -34,15 +34,16 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
         conText=context;
         Users tmp= UserLocalStore.getLoggedInUser();
         USER_ID=tmp.getC_username();
+        TABLE_FRIENDS= "friends"+USER_ID;
         Log.d("SQliteHandlerClass..Table name:",USER_ID);
-
+        Log.d("table",TABLE_FRIENDS);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-
+        Log.d("PLAKA_KANEIS",TABLE_FRIENDS);
 
         String CREATE_FRIENDS_TABLE ="CREATE TABLE " + TABLE_FRIENDS + " ("
             + KEY_ID + " INTEGER NOT NULL ,"
