@@ -34,20 +34,26 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
 /**
  * Created by SoRa1 on 11/12/2015.
  */
-public class UploadPersonalImage_ASYNC extends AsyncTask
+public class UserProfileScreen_ChangeProfilePhoto_ASYNC extends AsyncTask
 {
-    private final Uri selectedImageUri;
-    private final ImageView imageView;
-    private final Context context;
-    private final Users user;
-    private final WebService webService;
-    private  ContentResolver contentResolver;
-//    private String serverURL="http://192.168.1.4/android/tst.php";
-    private String serverURL="http://projectdb.esy.es/Android/UploadImage.php";
+    //    private static finalString serverURL="http://192.168.1.4/android/UploadImage.php";    //Local location of Web Service
+    private static final String serverURL="http://projectdb.esy.es/Android/UploadImage.php";    //Remote Location of Web Service
+
+    private static final String IMAGE_PATH = "http://projectdb.esy.es/Android/upload/";         //Remote Absolute Image Path
+    //private static final String IMAGE_PATH = "http://192.168.1.4/android/upload/";              //Local Absolute Image Path
+
+    private        Uri selectedImageUri;
+    private        ImageView imageView;
+    private        Context context;
+    private        Users user;
+    private        WebService webService;
+    private        ContentResolver contentResolver;
     private static UserLocalStore userLocalStore;
-    private String username;
-    Bitmap bit;
-    public UploadPersonalImage_ASYNC(Uri uri,Context con,ImageView view)
+    private        String username;
+    private        Bitmap bit;
+
+
+    public UserProfileScreen_ChangeProfilePhoto_ASYNC(Uri uri, Context con, ImageView view)
     {
         context=con;
         webService=new WebService(context);
@@ -57,7 +63,6 @@ public class UploadPersonalImage_ASYNC extends AsyncTask
         username=user.getC_username();
         selectedImageUri=uri;
         imageView=view;
-
 
     }
 
@@ -91,8 +96,8 @@ public class UploadPersonalImage_ASYNC extends AsyncTask
         catch (Exception e){e.printStackTrace();}
 
 
-//        webService.updateLocalDatabase("http://192.168.1.4/android/upload/"+username+".JPG",username);
-        webService.updateLocalDatabase("http://projectdb.esy.es/Android/upload/"+username+".JPG",username);
+//      webService.updateLocalDatabase(+username+".jpg",username);              //Absolute Path to Image locally
+        webService.updateLocalDatabase(IMAGE_PATH +username+".jpg",username);   //Absolute Path to Image on remote server
 
         return null;
     }
@@ -104,16 +109,16 @@ public class UploadPersonalImage_ASYNC extends AsyncTask
 
     }
 
-
-    private HttpParams getHttpRequestParams(){
+    private HttpParams getHttpRequestParams()
+    {
         HttpParams httpRequestParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(httpRequestParams, 1000 * 30);
-        HttpConnectionParams.setSoTimeout(httpRequestParams, 1000 * 30);
+        HttpConnectionParams.setConnectionTimeout(httpRequestParams, 20000);
+        HttpConnectionParams.setSoTimeout(httpRequestParams, 20000);
         return httpRequestParams;
     }
 
 
-    public String getPath(Uri uri, ContentResolver contentResolver) {
+    private  String getPath(Uri uri, ContentResolver contentResolver) {
 
         String[] projection = {MediaStore.Images.Media.DATA};
 

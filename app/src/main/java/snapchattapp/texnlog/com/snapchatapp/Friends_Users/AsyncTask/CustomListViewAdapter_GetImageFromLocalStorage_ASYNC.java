@@ -19,27 +19,14 @@ import snapchattapp.texnlog.com.snapchatapp.R;
 /**
  * Created by SoRa1 on 9/12/2015.
  */
-public class AsyncTaskSearchFriendsImage extends AsyncTask {
+public class CustomListViewAdapter_GetImageFromLocalStorage_ASYNC extends AsyncTask {
     private static  Bitmap bitmap=null;
-    private final Context context;
-    private  String photo;
-    private ImageView imageView;
+    private final   Context context;
+    private         String photo;
+    private         ImageView imageView;
 
-    @Override
-    protected Object doInBackground(Object[] objects)
-    {
-        try {
-            HttpURLConnection connection= (HttpURLConnection) new URL(photo).openConnection();
-            InputStream reader=connection.getInputStream();
-            bitmap=BitmapFactory.decodeStream(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
-            photo="no_photo";
-        }
-        return null;
-    }
 
-    public AsyncTaskSearchFriendsImage(String photoPath, ImageView imgView,Context COntext)
+    public CustomListViewAdapter_GetImageFromLocalStorage_ASYNC(String photoPath, ImageView imgView, Context COntext)
     {
         photo=photoPath;
         imageView=imgView;
@@ -47,19 +34,35 @@ public class AsyncTaskSearchFriendsImage extends AsyncTask {
     }
 
     @Override
+    protected Object doInBackground(Object[] objects)
+    {
+        try
+        {
+            HttpURLConnection connection= (HttpURLConnection) new URL(photo).openConnection();      //Get Image
+            InputStream reader=connection.getInputStream();                                         //From Remote
+            bitmap=BitmapFactory.decodeStream(reader);                                              //Server and fill the ImageView
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            photo="no_photo"; //If IOException is thrown cause there the user has no photo set
+                              //variable equal to "no_photo" check onPostExecute() for more...
+        }
+        return null;
+    }
+
+
+
+    @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         Log.d("AsyncTaskSearchFriendImage.....photo value", photo);
         if(photo.equals("no_photo"))
         {
-
             imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.no_photo));
         }
         else imageView.setImageBitmap(bitmap);
     }
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
+
 }

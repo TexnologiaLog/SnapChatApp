@@ -2,8 +2,6 @@ package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -16,15 +14,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.AsyncTaskSearchFriends;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.SearchScreenActivity_SearchQuery_ASYNC;
 import snapchattapp.texnlog.com.snapchatapp.R;
-import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
 
 public class SearchScreenActivity extends AppCompatActivity {
-    private Button btnBack;
+    private        Button btnBack;
     private static ListView listview;
     private static Context context;
-    private SearchView searchView;
+    private        SearchView searchView;
 
 
     @Override
@@ -32,27 +29,21 @@ public class SearchScreenActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_screen);
-        Log.d("DO", "OnCreateFriendsActivity");
+        Log.d("SearchScreenActivity...", "OnCreateFriendsActivity");
 
-        btnBack=(Button) findViewById(R.id.btnSearchScreenBack);
-        listview=(ListView) findViewById(R.id.listView);
-        context=getBaseContext();
+        SetUpResources(); //initialize activity resources
 
+        SetUpListeners();  //Set up event listeners for button and searchView
 
-        searchView = (SearchView) findViewById(R.id.searchView);
+    }
 
-
-
-
-
-
+    private void SetUpListeners() {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),FriendsScreenActivity.class));
             }
         });
-
 
 
         searchView.setQueryHint("Enter username to search");
@@ -62,7 +53,7 @@ public class SearchScreenActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d("SearchScreenActivity...QuerySubmit", query);
-                new AsyncTaskSearchFriends("",query).execute();
+                new SearchScreenActivity_SearchQuery_ASYNC("",query).execute();
 
                 return false;
             }
@@ -76,41 +67,30 @@ public class SearchScreenActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void SetUpResources() {
+        btnBack=(Button) findViewById(R.id.btnSearchScreenBack);
+        listview=(ListView) findViewById(R.id.listView);
+        context=getBaseContext();
 
 
-
-
+        searchView = (SearchView) findViewById(R.id.searchView);
     }
 
 
-
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(updateUI());
-    }
-
-    public boolean updateUI()
+    public  static void addListData(final ArrayList<Users> ls,int FOUND_USERS)
     {
-        return true;
-    }
-
-
-    public  static void addListData(final ArrayList<Users> ls,int FOUND)
-    {
-        if(FOUND==0) {
-            ArrayList<String> values = new ArrayList<String>();
-            values.add("No such users found");
-            ArrayAdapter nullAdapter = new ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line,values);
-            listview.setAdapter(nullAdapter);
-
+        if( FOUND_USERS == 0)
+        {
+            ArrayList<String> values = new ArrayList<String>();                                                             //
+            values.add("No such users found");                                                                         // If no user matches the criteria given
+            ArrayAdapter nullAdapter = new ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line,values);  // show "no users message"
+            listview.setAdapter(nullAdapter);                                                                          //
         }
-        else {
-
-
-            ArrayAdapter<Users> adapter = new ListViewAdapter(context, ls, -1);
+        else
+        {
+            ArrayAdapter<Users> adapter = new CustomListViewAdapter(context, ls, -1);
 
             listview.setAdapter(adapter);
 

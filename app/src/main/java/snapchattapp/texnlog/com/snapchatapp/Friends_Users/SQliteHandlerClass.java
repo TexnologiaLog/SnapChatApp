@@ -17,8 +17,8 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
 public class SQliteHandlerClass extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
-    private static  String USER_ID;
-    public static  String TABLE_FRIENDS ;
+    private static       String USER_ID;
+    public static        String TABLE_FRIENDS ;
     private static final String DATABASE_NAME = "testing";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
@@ -26,25 +26,24 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_PHOTO = "personal_photo";
-    private Context conText;
+    private              Context conText;
 
 
-    public SQliteHandlerClass(Context context) {
+    public SQliteHandlerClass(Context context)
+    {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         conText=context;
-        Users tmp= UserLocalStore.getLoggedInUser();
+        UserLocalStore localStore=new UserLocalStore(conText);
+        Users tmp= localStore.getLoggedInUser();
         USER_ID=tmp.getC_username();
         TABLE_FRIENDS= "friends"+USER_ID;
-        Log.d("SQliteHandlerClass..Table name:",USER_ID);
-        Log.d("table",TABLE_FRIENDS);
+        Log.d("SQliteHandlerClass..Table name:",TABLE_FRIENDS);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        Log.d("PLAKA_KANEIS",TABLE_FRIENDS);
-
         String CREATE_FRIENDS_TABLE ="CREATE TABLE " + TABLE_FRIENDS + " ("
             + KEY_ID + " INTEGER NOT NULL ,"
             + KEY_NAME + " VARCHAR(32),"
@@ -57,8 +56,6 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
 
 
         db.execSQL(CREATE_FRIENDS_TABLE);
-
-
 
     }
 
@@ -85,7 +82,7 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
 
 
         try{ db.insertOrThrow(table, null, values);}
-        catch (Exception e){Log.d("DATABASE", e.getMessage());}
+        catch (Exception e){Log.d("SQLiteHandlerClass....", e.getMessage());}
         db.close();
 
     }
@@ -105,7 +102,6 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
         {
             tmp = new Users(cursor.getString(0),cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
         }
-//        Log.d("DATABASE SQLII",tmp.toString()+"TABLE:"+table);
         cursor.close();
         db.close();
         return tmp;
@@ -131,7 +127,7 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
             users.setC_photoPath(cursor.getString(5));
             // Adding users to list
             tmp.add(users);
-            Log.d("SQliteGetAllUsers", users.toString());
+            Log.d("SQLiteHandlerClass...GetAllUsers", users.toString());
         } while (cursor.moveToNext());
 
 
@@ -149,7 +145,7 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
         String[] whereArgs = new String[] { username };
         try{db.execSQL("DELETE  FROM "+TABLE_FRIENDS+" WHERE username='"+username+"'");}
         catch (Exception e){e.getMessage();Log.d("check",String.valueOf(i));}
-        Log.d("DATABASE", String.valueOf(i));
+        Log.d("SQLiteHandlerClass...RemoveUser...", String.valueOf(i));
         db.close();
         return i>0;
     }

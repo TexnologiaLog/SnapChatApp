@@ -15,16 +15,16 @@ import snapchattapp.texnlog.com.snapchatapp.R;
 /**
  * Created by SoRa1 on 17/12/2015.
  */
-public class LoadImageInDetailsActivityASYNC extends AsyncTask {
+public class DetailsScreenActivity_DownloadImage_ASYNC extends AsyncTask {
 
 
     private final ImageView imageview;
     private final String photoURL;
     private final Context context;
     private Bitmap bitmap;
-    private String photo;
+    private String photo="photo";
 
-    public LoadImageInDetailsActivityASYNC(String PhotoURL,ImageView image,Context contex)
+    public DetailsScreenActivity_DownloadImage_ASYNC(String PhotoURL, ImageView image, Context contex)
     {
         photoURL=PhotoURL;
         imageview=image;
@@ -45,9 +45,8 @@ public class LoadImageInDetailsActivityASYNC extends AsyncTask {
         {
             HttpURLConnection connection= (HttpURLConnection) new URL(photoURL).openConnection();
             bitmap= BitmapFactory.decodeStream(connection.getInputStream());
-
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
             photo="no_photo";
@@ -61,7 +60,6 @@ public class LoadImageInDetailsActivityASYNC extends AsyncTask {
         super.onPostExecute(o);
         if(photo.equals("no_photo"))
         {
-
             imageview.setImageDrawable(context.getResources().getDrawable(R.drawable.no_photo));
         }
         else imageview.setImageBitmap(bitmap);

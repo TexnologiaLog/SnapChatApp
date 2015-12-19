@@ -19,12 +19,24 @@ import snapchattapp.texnlog.com.snapchatapp.Friends_Users.WebService;
 /**
  * Created by SoRa1 on 9/12/2015.
  */
-public class AsyncTaskSearchFriends extends AsyncTask {
-    //public static final String GET_USERS_SERVICE_URL = "http://192.168.1.4/android/GetUsers.php"; //Testing at localhost
-     public static final String GET_USERS_SERVICE_URL = "http://projectdb.esy.es/Android/GetUsers.php"; //Working at remote database
-    private final String query;
+public class SearchScreenActivity_SearchQuery_ASYNC extends AsyncTask {
+    //private static final String GET_USERS_SERVICE_URL = "http://192.168.1.4/android/GetUsers.php";    //Local location of Web Service
+
+    private static final String GET_USERS_SERVICE_URL = "http://projectdb.esy.es/Android/GetUsers.php"; //Remote location of Web Service
+
+    private static final int FOUND_USERS_FLAG = 1;
+    private static final int NOT_FOUND_USERS_FLAG = 0;
+
+    private  String query;
     private String DataToSend="";
-    ArrayList<Users> users;
+    private ArrayList<Users> users;
+
+
+    public SearchScreenActivity_SearchQuery_ASYNC(String data, String Query)
+    {
+        DataToSend=data;
+        query=Query;
+    }
 
     @Override
     protected Object doInBackground(Object[] objects) {
@@ -34,11 +46,11 @@ public class AsyncTaskSearchFriends extends AsyncTask {
                     + "=" + URLEncoder.encode(query, "UTF-8");
 
             HttpURLConnection connection= WebService.httpRequest(DataToSend, GET_USERS_SERVICE_URL);
-            String response=WebService.httpResponse(connection);
-            JSONParser parser=new JSONParser();
-            JSONArray array= (JSONArray) parser.parse(response);
+            String response = WebService.httpResponse(connection);
+            JSONParser parser = new JSONParser();
+            JSONArray array = (JSONArray) parser.parse(response);
             users=WebService.JSONtoArrayListData(array);
-            Log.d("AsyncTaskSearchFriends", users.toString());
+            Log.d("SearchScreenActivity_SearchQuery_ASYNC", users.toString());
 
         }
         catch (Exception e){e.printStackTrace();}
@@ -46,21 +58,14 @@ public class AsyncTaskSearchFriends extends AsyncTask {
         return null;
     }
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
 
     @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
-        if(users!=null)SearchScreenActivity.addListData(users,1);
-        else SearchScreenActivity.addListData(null,0);
-    }
-
-    public AsyncTaskSearchFriends(String data, String Query)
+    protected void onPostExecute(Object o)
     {
-        DataToSend=data;
-        query=Query;
+        super.onPostExecute(o);
+        if(users!=null)SearchScreenActivity.addListData(users, FOUND_USERS_FLAG);
+        else {SearchScreenActivity.addListData(null, NOT_FOUND_USERS_FLAG);}
     }
+
+
 }

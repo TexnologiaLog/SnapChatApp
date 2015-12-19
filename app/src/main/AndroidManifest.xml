@@ -22,25 +22,6 @@
         android:theme="@style/AppTheme">
 
 
-
-
-        <activity
-            android:name=".UserConnection.register"
-            android:label="@string/title_activity_rgister"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".UserConnection.login"
-            android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".Camera.PhotoPreview"
-            android:screenOrientation="portrait"
-            android:theme="@style/AlertDialog.AppCompat"></activity>
-        <activity
-            android:name=".Camera.TestingCameraActivity">
-
-        </activity>
-
         <activity android:name=".UserConnection.MainActivity"
             android:label="SnapChatApp"
             android:screenOrientation="portrait"
@@ -75,6 +56,22 @@
         <activity
             android:name=".Friends_Users.UserProfileScreen"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UserConnection.register"
+            android:label="@string/title_activity_rgister"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UserConnection.login"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Camera.PhotoPreview"
+            android:screenOrientation="portrait"
+            android:theme="@style/AlertDialog.AppCompat"></activity>
+        <activity
+            android:name=".Camera.TestingCameraActivity">
+
+        </activity>
     </application>
 
 
