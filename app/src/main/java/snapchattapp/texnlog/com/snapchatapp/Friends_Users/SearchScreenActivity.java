@@ -14,11 +14,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import snapchattapp.texnlog.com.snapchatapp.Camera.TestingCameraActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.SearchScreenActivity_SearchQuery_ASYNC;
 import snapchattapp.texnlog.com.snapchatapp.R;
 
 public class SearchScreenActivity extends AppCompatActivity {
-    private        Button btnBack;
+    private        Button btnGoToCamera;
     private static ListView listview;
     private static Context context;
     private        SearchView searchView;
@@ -38,10 +39,10 @@ public class SearchScreenActivity extends AppCompatActivity {
     }
 
     private void SetUpListeners() {
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnGoToCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FriendsScreenActivity.class));
+                startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class));
             }
         });
 
@@ -70,9 +71,9 @@ public class SearchScreenActivity extends AppCompatActivity {
     }
 
     private void SetUpResources() {
-        btnBack=(Button) findViewById(R.id.btnSearchScreenBack);
-        listview=(ListView) findViewById(R.id.listView);
-        context=getBaseContext();
+        btnGoToCamera = (Button) findViewById(R.id.btnSearchScreenCamera);
+        listview      = (ListView) findViewById(R.id.listView);
+        context       =  getBaseContext();
 
 
         searchView = (SearchView) findViewById(R.id.searchView);

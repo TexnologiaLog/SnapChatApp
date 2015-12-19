@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import snapchattapp.texnlog.com.snapchatapp.Camera.TestingCameraActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.AsyncTask.FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC;
 import snapchattapp.texnlog.com.snapchatapp.R;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
@@ -21,7 +22,7 @@ public class FriendsScreenActivity extends AppCompatActivity {
     public  static  String USER_ID =null;
     private static ListView listview;
     private static Context context;
-    private Button btnSearch,btnProfile;
+    private Button btnSearch, btnCamera;
 
 
     @Override
@@ -37,10 +38,10 @@ public class FriendsScreenActivity extends AppCompatActivity {
     }
 
     private void SetUpButtonListeners() {
-        btnProfile.setOnClickListener(new View.OnClickListener() {
+        btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(getApplicationContext(),UserProfileScreen.class));
+                startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class));
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +53,7 @@ public class FriendsScreenActivity extends AppCompatActivity {
     }
 
     private void SetUpResources() {
-        btnProfile = (Button) findViewById(R.id.btnFriendsScreenProfile);
+        btnCamera = (Button) findViewById(R.id.btnFriendsScreenCamera);
         btnSearch = (Button) findViewById(R.id.btnFriendsScreenSearch);
         listview = (ListView) findViewById(R.id.listFriendsScreen);
         context = getBaseContext();

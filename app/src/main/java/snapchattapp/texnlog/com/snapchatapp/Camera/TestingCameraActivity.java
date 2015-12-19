@@ -35,19 +35,20 @@ public  class TestingCameraActivity extends Activity {
 
     private static final String TAG ="Debug" ;
     private static final String PICTURE_TAKEN ="Picture" ;
-    private  static   Camera customCamera=null;
-    private Camera.Parameters customCameraParam;
-    private SurfaceView camPreview;
-    private ImageButton btnCamera,btnPreviewImage,btnSettings,btnLogout;;
-    public static ImageView image;
-    private File mediaStorageDir,mediaFile;
-    private FrameLayout preview;
-    private SeekBar zoomBar;
-    LinearLayout layout;
+    private static       Camera customCamera=null;
+    private              Camera.Parameters customCameraParam;
+    private              SurfaceView camPreview;
+    private              ImageButton btnCamera,btnPreviewImage,btnSettings,btnLogout;;
+    public static        ImageView image;
+    private File         mediaStorageDir,mediaFile;
+    private FrameLayout  preview;
+    private SeekBar      zoomBar;
+    private LinearLayout layout;
     private ImageButton btnFrontCamera;
     private static int currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private TestingCameraActivity instance;
     private Button btnUsers;
+    private UserLocalStore localStore;
 
 
     @Override
@@ -55,20 +56,13 @@ public  class TestingCameraActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_layout);
+        localStore=new UserLocalStore(getApplicationContext());
         //state=CameraState.getCameraState();
         InitializeButtons();
         SettingUpButtonListeners();
         
 
     }
-
-
-    
-
-
-
-
-
 
 
     private void InitializeCameraPreview()
@@ -105,13 +99,12 @@ public  class TestingCameraActivity extends Activity {
 
 
 
-    private boolean LogOut() {
-        UserLocalStore tmp= MainActivity.userLocalStore;
-        tmp.clearUserData();
-        tmp.setUserLoggedIn(false);
-        if(tmp.getUserLoggedIn()) return false;
+    private boolean LogOut()
+    {
+        localStore.clearUserData();
+        localStore.setUserLoggedIn(false);
+        if(localStore.getUserLoggedIn()) return false;
         return true;
-
     }
 
 

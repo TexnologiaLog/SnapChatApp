@@ -29,7 +29,8 @@ public class SearchScreenActivity_SearchQuery_ASYNC extends AsyncTask {
 
     private  String query;
     private String DataToSend="";
-    private ArrayList<Users> users;
+    private ArrayList<Users> users=null;
+    private String ServerResponse="null";
 
 
     public SearchScreenActivity_SearchQuery_ASYNC(String data, String Query)
@@ -46,11 +47,11 @@ public class SearchScreenActivity_SearchQuery_ASYNC extends AsyncTask {
                     + "=" + URLEncoder.encode(query, "UTF-8");
 
             HttpURLConnection connection= WebService.httpRequest(DataToSend, GET_USERS_SERVICE_URL);
-            String response = WebService.httpResponse(connection);
+            ServerResponse = WebService.httpResponse(connection);
             JSONParser parser = new JSONParser();
-            JSONArray array = (JSONArray) parser.parse(response);
+            JSONArray array = (JSONArray) parser.parse(ServerResponse);
             users=WebService.JSONtoArrayListData(array);
-            Log.d("SearchScreenActivity_SearchQuery_ASYNC", users.toString());
+            Log.d("SearchScreenActivity_SearchQuery_ASYNC...UsersFound", users.toString());
 
         }
         catch (Exception e){e.printStackTrace();}
@@ -63,8 +64,8 @@ public class SearchScreenActivity_SearchQuery_ASYNC extends AsyncTask {
     protected void onPostExecute(Object o)
     {
         super.onPostExecute(o);
-        if(users!=null)SearchScreenActivity.addListData(users, FOUND_USERS_FLAG);
-        else {SearchScreenActivity.addListData(null, NOT_FOUND_USERS_FLAG);}
+        if(ServerResponse.equals("null")) {SearchScreenActivity.addListData(null, NOT_FOUND_USERS_FLAG); Log.d("WTF","tis ton petooo");}
+        else {SearchScreenActivity.addListData(users, FOUND_USERS_FLAG); Log.d("EOXIREGAMHSOU", "tis ton petooo");}
     }
 
 

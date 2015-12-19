@@ -13,8 +13,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:id="@+id/btnFriendsScreenProfile"/>
+        android:text="Camera"
+        android:id="@+id/btnFriendsScreenCamera"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

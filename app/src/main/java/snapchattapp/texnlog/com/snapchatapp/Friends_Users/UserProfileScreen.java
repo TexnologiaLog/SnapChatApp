@@ -22,7 +22,7 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
 public class UserProfileScreen extends Activity
 {
     private static final int REQUEST_CODE = 1;
-    private        Button btnFriends,btnChangeImage,btnBack;
+    private        Button btnFriends,btnChangeImage, btnSearch;
     private        ImageView imgViewProfileImage;
     private        Users loggedInUser;
     private        TextView txtUsername, txtFullName, txtAge;
@@ -61,10 +61,10 @@ public class UserProfileScreen extends Activity
         });
 
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(UserProfileScreen.this,SearchScreenActivity.class));
             }
         });
     }
@@ -82,7 +82,7 @@ public class UserProfileScreen extends Activity
         txtFullName         = (TextView) findViewById(R.id.txtUserProfileScreenName);
         btnFriends          = (Button) findViewById(R.id.btnUserProfileScreenFriends);
         txtAge              = (TextView) findViewById(R.id.txtUserProfileScreenAge);
-        btnBack             = (Button) findViewById(R.id.btnUserProfileScreenBack);
+        btnSearch           = (Button) findViewById(R.id.btnUserProfileScreenSearch);
     }
 
     @Override
