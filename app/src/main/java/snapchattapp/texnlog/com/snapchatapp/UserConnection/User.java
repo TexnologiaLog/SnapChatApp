@@ -22,4 +22,13 @@ public class User {
         this.age = "-1";
         this.name = "";
     }
+
+    public User(){
+        this.user_id = "";
+        this.name = "";
+        this.age = "";
+        this.username = "";
+        this.password = "";
+        this.photo = "";
+    }
 }

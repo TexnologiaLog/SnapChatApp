@@ -53,7 +53,14 @@ public class register extends AppCompatActivity implements View.OnClickListener 
                 boolean accountValidationCheck = av.isRegisterValid(us);
 
                 if(accountValidationCheck == true) {
-                    registerUser(us);
+                    UserExistInDatabase ueid = new UserExistInDatabase();
+                    boolean userExist = ueid.insertedUserDataExist(us);
+                    if(userExist == false){
+                        registerUser(us);
+                    }
+                    else{
+                        showErrorMessage2();
+                    }
                 }
                 else{
                     showErrorMessage();
@@ -75,6 +82,14 @@ public class register extends AppCompatActivity implements View.OnClickListener 
     private void showErrorMessage(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(register.this);
         dialogBuilder.setMessage("There are invalid characters. Please check the fields.");
+        dialogBuilder.setPositiveButton("Ok",null);
+        dialogBuilder.show();
+
+    }
+
+    private void showErrorMessage2(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(register.this);
+        dialogBuilder.setMessage("User already exist.");
         dialogBuilder.setPositiveButton("Ok",null);
         dialogBuilder.show();
 
