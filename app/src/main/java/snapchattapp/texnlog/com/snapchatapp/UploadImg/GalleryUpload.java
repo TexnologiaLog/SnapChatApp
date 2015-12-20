@@ -27,7 +27,7 @@ import snapchattapp.texnlog.com.snapchatapp.R;
  */
 
 
-public class Upload extends AppCompatActivity implements View.OnClickListener {
+public class GalleryUpload extends AppCompatActivity implements View.OnClickListener {
 
     public static final String UPLOAD_URL = "http://projectdb.esy.es/upload.php";
     public static final String UPLOAD_KEY = "image";
@@ -49,7 +49,7 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload);
+        setContentView(R.layout.activity_gupload);
 
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
@@ -109,7 +109,7 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(Upload.this, "Uploading Image", "Please wait...",true,true);
+                loading = ProgressDialog.show(GalleryUpload.this, "Uploading Image", "Please wait...",true,true);
             }
 
             @Override
@@ -150,5 +150,3 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
         }
     }
 }
-
-

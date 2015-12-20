@@ -14,15 +14,26 @@
 
     <ImageView
         android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="275dp"
+        android:layout_height="289dp"
         android:id="@+id/photo_preview"
         android:adjustViewBounds="true"
-        />
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_width="305dp"
+        android:layout_height="68dp"
+        android:id="@+id/btnGSend"
+        android:layout_marginLeft="30dp"
+        android:text="Send Photo From Gallery"
+        android:layout_gravity="center_vertical" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
 
 
@@ -32,9 +43,9 @@
         android:text="@string/newSnap"
         android:id="@+id/btnNewSnap"
         android:layout_marginTop="20dp"
-         />
+        android:layout_weight="0.42" />
 
-    <Button
+        <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit"
@@ -42,15 +53,18 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
 
-         />
+            android:layout_weight="0.23" />
 
-    <Button
+        <Button
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send"
         android:id="@+id/btnSend"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginLeft="30dp"
+            android:layout_weight="0.38" />
+
+
     </LinearLayout>
 
 </LinearLayout>

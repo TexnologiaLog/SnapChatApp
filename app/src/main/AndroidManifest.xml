@@ -48,7 +48,7 @@
             android:name=".UserConnection.MainActivity"
             android:label="Camera"></activity>
         <activity
-            android:name=".UploadImg.Upload"
+            android:name=".UploadImg.GalleryUpload"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" >
         </activity>
