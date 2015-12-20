@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -16,13 +17,13 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
 /**
  * Created by SoRa1 on 10/12/2015.
  */
-public class LoadProfileImageASYNC extends AsyncTask {
+public class UserProfileScreen_LoadProfileImage_ASYNC extends AsyncTask {
     private ImageView imageVIEW;
     private Context conTEXT;
     private Users user;
     private Bitmap bitmap;
 
-    public LoadProfileImageASYNC(Context context,ImageView imageView)
+    public UserProfileScreen_LoadProfileImage_ASYNC(Context context, ImageView imageView)
     {
         imageVIEW=imageView;
         conTEXT=context;
@@ -37,7 +38,7 @@ public class LoadProfileImageASYNC extends AsyncTask {
     protected Object doInBackground(Object[] objects)
     {
         String serviceURL=user.getC_photoPath();
-
+        Log.d("LoadImage Async....user photo path",serviceURL);
         try
         {
             HttpURLConnection connection= (HttpURLConnection) new URL(serviceURL).openConnection();

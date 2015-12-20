@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -21,16 +20,19 @@ import snapchattapp.texnlog.com.snapchatapp.Friends_Users.WebService;
 /**
  * Created by SoRa1 on 9/12/2015.
  */
-public class SaveImagesLocal_ASYNC extends AsyncTask
+public class FriendsScreenActivity_StoreImagesLocally_ASYNC extends AsyncTask
 {
     private static final String TABLE_FRIENDS = SQliteHandlerClass.TABLE_FRIENDS;
-    private final Context context;
-    ArrayList<Users> arrayListUsers;
+    private  Context context;
+    private  WebService service;
+    private ArrayList<Users> arrayListUsers;
+
     @Override
     protected Object doInBackground(Object[] objects)
     {
-         for (Users user : GetDataFromDatabaseAsyncTask.friendsArrayListFromJSON) {
-            try {
+         for (Users user : arrayListUsers) {
+            try
+            {
                 HttpURLConnection connection = (HttpURLConnection) new URL(user.getC_photoPath()).openConnection();
                 InputStream inputStream = connection.getInputStream();
                 Bitmap img = BitmapFactory.decodeStream(inputStream);
@@ -41,24 +43,23 @@ public class SaveImagesLocal_ASYNC extends AsyncTask
                 fos.close();
 
                 user.setC_photoPath(user.getC_username());
-                Log.d("IMAGI", user.getC_photoPath());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                Log.d("StoreImagesLocally....CurrentUser photoPath", user.getC_photoPath());
+            } catch (Exception e) { e.printStackTrace();}
         }
         return null;
     }
 
-    public SaveImagesLocal_ASYNC(ArrayList<Users> users,Context conText)
+    public FriendsScreenActivity_StoreImagesLocally_ASYNC(ArrayList<Users> users, Context conText)
     {
         arrayListUsers=users;
         context=conText;
+        service=new WebService(context);
     }
 
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        WebService.addDataToLocalDatabase(context, GetDataFromDatabaseAsyncTask.friendsArrayListFromJSON, TABLE_FRIENDS);
-        FriendsScreenActivity.addListData(WebService.getUsersFromLocalDatabase(context, TABLE_FRIENDS));
+        service.addDataToLocalDatabase(FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC.friendsArrayListFromJSON, TABLE_FRIENDS); //Add Friends to SQLite Database
+        FriendsScreenActivity.addListData(service.getUsersFromLocalDatabase(TABLE_FRIENDS));                                         //Fill listView at Friends Screen Activity
     }
 }

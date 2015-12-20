@@ -1,7 +1,9 @@
 package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
 
+import android.content.ContentValues;
 import android.content.Context;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -30,11 +32,14 @@ public class   WebService
 {
     private static final int READ_TIMEOUT =10000 ;
     private static final int CONNECTION_TIMEOUT =10000;
-    public static final String ADD_FRIEND_URL = "http://192.168.1.4/android/AddFriend.php"; //Testing at localhost
-    public static final String DELETE_FRIEND_URL = "http://192.168.1.4/android/DeleteFriend.php";
-    //public static final String ADD_FRIEND_URL = "http://projectdb.esy.es/Android/AddFriend.php";  //Working on remote Database
-    //public static final String DELETE_FRIEND_URL = "http://projectdb.esy.es/Android/DeleteFriend.php";
-    private static SQliteHandlerClass sQliteHandlerClass;
+
+    //public static final String ADD_FRIEND_URL = "http://192.168.1.4/android/AddFriend.php"; //Testing at localhost
+    //public static final String DELETE_FRIEND_URL = "http://192.168.1.4/android/DeleteFriend.php";
+
+    public static final String ADD_FRIEND_URL = "http://projectdb.esy.es/Android/AddFriend.php";  //Working on remote Database
+    public static final String DELETE_FRIEND_URL = "http://projectdb.esy.es/Android/DeleteFriend.php";
+
+    public static SQliteHandlerClass sQliteHandlerClass;
 
 
     public WebService(Context context)
@@ -50,17 +55,17 @@ public class   WebService
         return (JSONArray) parser.parse(response);
     }
 
-    public static  void addDataToLocalDatabase(Context context,ArrayList<Users> usersArrayList,String table)
+    public void addDataToLocalDatabase(ArrayList<Users> usersArrayList,String table)
     {
         for(int i=0;i<usersArrayList.size();i++)
         {
             sQliteHandlerClass.addUser(usersArrayList.get(i),table);
-            Log.d("DATABASE", "Table:" + table + "\n" +usersArrayList.get(i).toString());
+            Log.d("WebService...addDataToLocalDatabase", "Table:" + table + "\n" +usersArrayList.get(i).toString());
         }
         sQliteHandlerClass.close();
     }
 
-    public static ArrayList<Users> getUsersFromLocalDatabase(Context context,String TABLE)
+    public ArrayList<Users> getUsersFromLocalDatabase(String TABLE)
     {
         ArrayList<Users> arrayListToReturn=null;
         return  arrayListToReturn=sQliteHandlerClass.getAllUsers(TABLE);
@@ -107,14 +112,16 @@ public class   WebService
     }
 
 
-    public static Users getUser(String username,String table)
+    public  Users getUser(String username,String table)
     {
         Users tmp=null;
+        Log.d("WebService.....tableVALUE",table);
         try{tmp=sQliteHandlerClass.getUsers(username,table);}
         catch (NullPointerException e){e.printStackTrace();}
         return tmp;
     }
-    public static boolean removeUser(String username)
+
+    public  boolean removeUser(String username)
     {
         return sQliteHandlerClass.removeUser(username);
     }
@@ -132,6 +139,8 @@ public class   WebService
         return false;
 
     }
+
+
     public static boolean addFriendToRemoteDatabase(String friend_id,String user_id) throws IOException
     {
         String data = URLEncoder.encode("user_id", "UTF-8")+"="+URLEncoder.encode(user_id, "UTF-8");
@@ -158,6 +167,7 @@ public class   WebService
         wr.flush();
         return conn;
     }
+
     public static String httpResponse(HttpURLConnection con) throws IOException {
         BufferedReader reader= null;
         reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -170,6 +180,14 @@ public class   WebService
         reader.close();
         Log.d("WebServiceHttpRESPONSE",sb.toString());
         return sb.toString();
+    }
+
+    public  void updateLocalDatabase(String filename,String username)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put("personal_photo",filename);
+        SQLiteDatabase db=sQliteHandlerClass.getWritableDatabase();
+        db.update(sQliteHandlerClass.TABLE_FRIENDS, cv, "username "+"= "+"'"+username+"'", null);
     }
 
 
