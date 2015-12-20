@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".UploadImg.Upload1">
+    tools:context=".UploadImg.GalleryUpload">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,15 +16,15 @@
         android:id="@+id/linearLayout">
 
 
-        <!--<Button-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Choose Image"-->
-            <!--android:id="@+id/buttonChoose" />-->
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Image"
+            android:id="@+id/buttonChoose" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="349dp"
             android:id="@+id/imageView" />
 
 
@@ -40,22 +40,13 @@
         android:layout_alignParentStart="true" />
 
     <Button
-    android:layout_width="fill_parent"
-    android:text="Upload Image"
-    android:layout_height="wrap_content"
-    android:id="@+id/buttonUpload"
+        android:layout_width="fill_parent"
+        android:text="Upload Image"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonUpload"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Choose User"
-        android:id="@+id/optionUserButton"
-        android:layout_below="@+id/buttonView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import snapchattapp.texnlog.com.snapchatapp.Camera.TestingCameraActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
 
+
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
     Button bLogout;
