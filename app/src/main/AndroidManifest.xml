@@ -28,7 +28,10 @@
             android:name=".PhotoPreview"
             android:screenOrientation="portrait"
             android:theme="@style/AlertDialog.AppCompat"></activity>
-        <activity android:name=".EditPhoto"></activity>
+        <activity
+            android:name=".EditPhoto"
+            android:screenOrientation="portrait"
+            android:theme="@style/AlertDialog.AppCompat"></activity>
         <activity android:name=".ImageGallery"></activity>
 
 

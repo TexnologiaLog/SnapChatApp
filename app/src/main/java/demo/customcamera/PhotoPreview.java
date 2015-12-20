@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class PhotoPreview extends Activity {
     private static final String TAG = "Debug";
     ImageView imagePreview;
-    Button btnNewSnap, btnSend, btnEdit, btnGallery;
+    Button btnNewSnap, btnSend, btnEdit;
 
 
     @Override
@@ -48,7 +48,6 @@ public class PhotoPreview extends Activity {
         btnNewSnap = (Button) findViewById(R.id.btnNewSnap);
         btnEdit = (Button) findViewById(R.id.btnEdit);
         btnSend = (Button) findViewById(R.id.btnSend);
-        btnGallery = (Button) findViewById(R.id.btnGallery);
 
         SetUpButtonListeners();
     }
@@ -59,13 +58,6 @@ public class PhotoPreview extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class));
-            }
-        });
-
-        btnGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ImageGallery.class));
             }
         });
 

@@ -13,6 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 
 /**
@@ -22,8 +24,9 @@ import android.widget.ImageView;
 
 public class ImageGallery extends Activity {
 
-    private static final int SELECTED_PIC = 1;
+    private static final int SELECTED_PIC = 2, ROTATE_PIC = 1;
     ImageView iv;
+    Button btnRotate,btnSelectGallery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,39 @@ public class ImageGallery extends Activity {
         setContentView(R.layout.gallery_layout);
 
         iv = (ImageView) findViewById(R.id.imgView);
+        SetUpButtons();
+    }
+
+    private void SetUpButtons() {
+        btnSelectGallery = (Button) findViewById(R.id.btnSelectGallery);
+        btnRotate = (Button) findViewById(R.id.btnRotate);
+
+        SetUpButtonListeners();
+    }
+
+    private void SetUpButtonListeners(){
+        final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        btnSelectGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+
+                startActivityForResult(i, SELECTED_PIC);
+            }
+        });
+
+        btnRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public  void onClick(View v) {
+                startActivityForResult(i, ROTATE_PIC);
+            }
+        });
     }
 
     public void btnClick(View v) {
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, SELECTED_PIC);
+
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -61,6 +92,15 @@ public class ImageGallery extends Activity {
                     iv.setBackground(d);
 
                 }
+
+                break;
+            case ROTATE_PIC:
+                //if (resaultCode == RESULT_OK){
+                    RotateAnimation rotate = new RotateAnimation(0, 300);
+                    rotate.setDuration(500);
+                    iv.startAnimation(rotate);
+
+                //}
 
                 break;
         }

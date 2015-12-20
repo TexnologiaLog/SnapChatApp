@@ -18,12 +18,18 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnGallery"
+            android:id="@+id/btnSelectGallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.12"
             android:onClick="btnClick"
             android:text="@string/gallery" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rotate"
+            android:id="@+id/btnRotate" />
     </LinearLayout>
 
 </LinearLayout>
