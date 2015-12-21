@@ -49,7 +49,7 @@ public  class TestingCameraActivity extends Activity {
     private TestingCameraActivity instance;
     private Button btnUsers;
     private UserLocalStore localStore;
-
+    private CameraParameters parameters=CameraParameters.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,7 +57,7 @@ public  class TestingCameraActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_layout);
         localStore=new UserLocalStore(getApplicationContext());
-        //state=CameraState.getCameraState();
+
         InitializeButtons();
         SettingUpButtonListeners();
         
@@ -86,8 +86,8 @@ public  class TestingCameraActivity extends Activity {
         preview.addView(btnLogout);
 
 
-        //preview.removeView(btnSettings);
-        //preview.addView(btnSettings);
+        preview.removeView(btnSettings);
+        preview.addView(btnSettings);
 
         preview.removeView(btnUsers);
         preview.addView(btnUsers);
@@ -119,28 +119,45 @@ public  class TestingCameraActivity extends Activity {
         btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
         btnLogout = (ImageButton) findViewById(R.id.btnLogout);
         btnUsers=(Button) findViewById(R.id.btnUsers);
-        
+        btnSettings=(ImageButton)findViewById(R.id.settings_button);
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
         btnPreviewImage.setEnabled(false);
 
     }
 
-    private void InitializeCamera()
-    {
+    private void InitializeCamera() {
         Camera.Size size;
         checkCameraHardware(this);
-        customCamera=getCameraInstance();
-        if(customCamera==null) Toast.makeText(this, "Camera not availlable", Toast.LENGTH_LONG).show();
-        customCameraParam=customCamera.getParameters();
+        customCamera = getCameraInstance();
+        if (customCamera == null)
+            Toast.makeText(this, "Camera not availlable", Toast.LENGTH_LONG).show();
+        customCameraParam = customCamera.getParameters();
+
+
+        zoomBar.setMax(customCameraParam.getMaxZoom());
+
+
+        if (parameters.getParameters() != null && parameters.getState() == true) {
+
+            customCameraParam.set("contrast", parameters.getContrast());
+            parameters.setContrast(5);
+            Log.d("panagiotis-contrast", customCameraParam.get("contrast"));
+            customCameraParam.set("saturation", parameters.getSaturation());
+            parameters.setSaturation(5);
+            Log.d("panagiotis-saturation", customCameraParam.get("saturation"));
+
+            customCameraParam.set("sharpness", parameters.getSharpness());
+            parameters.setSharpness(6);
+//            customCameraParam.setColorEffect(parameters.getEffect());
+//            parameters.setEffect("none");
+        }
         customCameraParam.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         customCameraParam.setJpegQuality(100);
-        
-        zoomBar.setMax(customCameraParam.getMaxZoom());
-        if(currentCameraId==Camera.CameraInfo.CAMERA_FACING_BACK) customCamera.setParameters(customCameraParam);
-}
+        if (currentCameraId == Camera.CameraInfo.CAMERA_FACING_BACK)
+            customCamera.setParameters(customCameraParam);
 
-
+    }
 
        public   static Camera getCameraInstance(){
         Camera c = null;
@@ -154,7 +171,7 @@ public  class TestingCameraActivity extends Activity {
 
         }
         catch (Exception e){
-           Log.d(TAG,"Camera not availlable");
+           Log.d(TAG,"Camera not available");
            e.printStackTrace();
         }
         return c; // returns null if camera is unavailable
@@ -286,10 +303,12 @@ public  class TestingCameraActivity extends Activity {
             btnPreviewImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Log.d(TAG, "Clicked");
                     Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(TestingCameraActivity.this, PhotoPreview.class);
                     intent.putExtra(PICTURE_TAKEN, mediaFile.getAbsolutePath());
+                    intent.putExtra("current_camera",currentCameraId);
                     startActivity(intent);
                     Log.d(TAG, "Starting Photo preview Activity");
                 }
@@ -324,6 +343,23 @@ public  class TestingCameraActivity extends Activity {
                     startActivity(new Intent(TestingCameraActivity.this, UserProfileScreen.class));
                 }
             });
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Camera.Parameters params = customCamera.getParameters();
+                String paramString = params.flatten();
+                if (paramString == null)
+                    Log.d(TAG, "null parameters");
+
+
+                Intent intent = new Intent(TestingCameraActivity.this, SettingsActivity.class);
+                intent.putExtra("ss", paramString);
+                startActivityForResult(intent, 2);
+
+
+
+            }
+        });
         }
     }
 
