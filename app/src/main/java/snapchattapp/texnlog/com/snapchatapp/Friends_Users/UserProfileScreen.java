@@ -47,7 +47,7 @@ public class UserProfileScreen extends Activity
         btnFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), FriendsScreenActivity.class));
+                startActivity(new Intent(getApplicationContext(), FriendsScreenActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
@@ -64,7 +64,7 @@ public class UserProfileScreen extends Activity
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserProfileScreen.this,SearchScreenActivity.class));
+                startActivity(new Intent(UserProfileScreen.this,SearchScreenActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
     }

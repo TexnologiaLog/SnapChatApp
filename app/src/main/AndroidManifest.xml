@@ -69,7 +69,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AlertDialog.AppCompat"></activity>
         <activity
-            android:name=".Camera.TestingCameraActivity">
+            android:name=".Camera.TestingCameraActivity"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity

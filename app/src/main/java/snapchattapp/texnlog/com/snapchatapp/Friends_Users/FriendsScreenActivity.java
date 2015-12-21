@@ -41,13 +41,13 @@ public class FriendsScreenActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class));
+                startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context,SearchScreenActivity.class));
+                startActivity(new Intent(context,SearchScreenActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
     }

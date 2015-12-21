@@ -42,7 +42,7 @@ public class SearchScreenActivity extends AppCompatActivity {
         btnGoToCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class));
+                startActivity(new Intent(getApplicationContext(), TestingCameraActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
