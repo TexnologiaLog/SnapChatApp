@@ -26,6 +26,7 @@ import java.io.IOException;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.FriendsScreenActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.SearchScreenActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.UserProfileScreen;
+import snapchattapp.texnlog.com.snapchatapp.UploadImg.ReceiveSnap;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.MainActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
@@ -50,6 +51,7 @@ public  class TestingCameraActivity extends Activity {
     private Button btnUsers;
     private UserLocalStore localStore;
     private CameraParameters parameters=CameraParameters.getInstance();
+    private ImageButton btnSnap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,6 +94,9 @@ public  class TestingCameraActivity extends Activity {
         preview.removeView(btnUsers);
         preview.addView(btnUsers);
 
+        preview.removeView(btnSnap);
+        preview.addView(btnSnap);
+
 
     }
 
@@ -111,15 +116,16 @@ public  class TestingCameraActivity extends Activity {
     private void InitializeButtons()
     {
 
-        btnCamera=(ImageButton) findViewById(R.id.fab);
-        btnPreviewImage=(ImageButton) findViewById(R.id.btnFlash);
-        image=(ImageView) findViewById(R.id.image);
-        zoomBar=(SeekBar) findViewById(R.id.zoomBar);
-        layout=(LinearLayout) findViewById(R.id.cam_layout);
-        btnFrontCamera=(ImageButton) findViewById(R.id.btnFrontCam);
-        btnLogout = (ImageButton) findViewById(R.id.btnLogout);
-        btnUsers=(Button) findViewById(R.id.btnUsers);
-        btnSettings=(ImageButton)findViewById(R.id.settings_button);
+        btnCamera       = (ImageButton)  findViewById(R.id.fab);
+        btnPreviewImage = (ImageButton)  findViewById(R.id.btnFlash);
+        image           = (ImageView)    findViewById(R.id.image);
+        zoomBar         = (SeekBar)      findViewById(R.id.zoomBar);
+        layout          = (LinearLayout) findViewById(R.id.cam_layout);
+        btnFrontCamera  = (ImageButton)  findViewById(R.id.btnFrontCam);
+        btnLogout       = (ImageButton)  findViewById(R.id.btnLogout);
+        btnUsers        = (Button)       findViewById(R.id.btnUsers);
+        btnSettings     = (ImageButton)  findViewById(R.id.settings_button);
+        btnSnap         = (ImageButton)  findViewById(R.id.TestingCameraActivityBtnCheckSnap);
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
         btnPreviewImage.setEnabled(false);
@@ -296,7 +302,14 @@ public  class TestingCameraActivity extends Activity {
                 }
             });
 
-
+            btnSnap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(TestingCameraActivity.this, ReceiveSnap.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
 
 
 
