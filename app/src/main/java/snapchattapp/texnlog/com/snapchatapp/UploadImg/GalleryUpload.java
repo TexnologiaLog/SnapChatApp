@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -124,8 +128,9 @@ public class GalleryUpload extends AppCompatActivity implements View.OnClickList
                 Bitmap bitmap = params[0];
                 String uploadImage = getStringImage(bitmap);
 
-                HashMap<String,String> data = new HashMap<>();
-                data.put(UPLOAD_KEY, uploadImage);
+//
+               HashMap<String,String> data =new HashMap();
+                    data.put(UPLOAD_KEY,uploadImage);
 
                 String result = rh.sendPostRequest(UPLOAD_URL,data);
 

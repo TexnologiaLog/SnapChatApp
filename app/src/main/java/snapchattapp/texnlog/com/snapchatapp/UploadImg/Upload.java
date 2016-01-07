@@ -13,11 +13,16 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -59,17 +64,24 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-
-            Intent intent = getIntent();
-
-
-            String image = intent.getStringExtra("image");
-            Log.d("panagiotis1",image);
-            uploadData.setFirstImage(image);
-
+        Intent intent = getIntent();
+        String image = intent.getStringExtra("image");
+        Log.d("panagiotis1",image);
+        uploadData.setFirstImage(image);
+        InitializeButtons();
         userLocalStore=new UserLocalStore(getApplicationContext());
 
-//        buttonChoose = (Button) findViewById(R.id.buttonChoose);
+
+        bitmap=BitmapFactory.decodeFile(mediaFile.getPath());
+        Log.d("panagiotis2", String.valueOf(bitmap));
+    }
+
+
+
+
+    public void InitializeButtons(){
+        Intent intent = getIntent();
+        String image = intent.getStringExtra("image");
         buttonUsers = (Button) findViewById(R.id.optionUserButton);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
         buttonView   = (Button) findViewById(R.id.buttonView);
@@ -78,20 +90,13 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
         imageView.setImageURI(Uri.parse(image));
         imageView.setRotation(90);
         imageView.setAdjustViewBounds(true);
-//        buttonChoose.setOnClickListener(this);
+
         buttonUsers.setOnClickListener(this);
         buttonUpload.setOnClickListener(this);
 
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
-        bitmap=BitmapFactory.decodeFile(mediaFile.getPath());
-        Log.d("panagiotis2", String.valueOf(bitmap));
     }
-
-
-
-
-
 
     public String getStringImage(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -122,23 +127,40 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             protected String doInBackground(Bitmap... params) {
+                HashMap<String,String> dataMap=new HashMap<>();
+                JSONArray data =new JSONArray();
                 Bitmap bitmap = params[0];
                 String uploadImage = getStringImage(bitmap);
                 Log.d(TAG, uploadImage);
                 String userid=userLocalStore.getLoggedInUser().getC_username();
-                HashMap<String,String> data = new HashMap<>();
-                data.put(UPLOAD_KEY, uploadImage);
-                data.put("userId",userid);
-                for(int i=0;i<uploadData.getSenderId().size();i++) {
-                    data.put("senderId" + i, (String) uploadData.getSenderId().get(i));
-                }
-                data.put("timer","10");
-                data.put("usercount", String.valueOf(uploadData.getSenderId().size()));
-                Log.d("SendData",data.toString());
 
-                String result = rh.sendPostRequest(UPLOAD_URL,data);
+                for(int i=0;i<uploadData.getSenderId().size();i++) {
+                        Log.d("SendData", String.valueOf(uploadData.getSenderId().size()));
+                        JSONObject dataItem =new JSONObject();
+                    try {
+                        dataItem.put("userid",userid);
+                        dataItem.put("senderid",uploadData.getSenderId().get(i));
+                        dataItem.put("timer", 10);
+//                        dataItem.put("image",uploadImage);
+                        data.put(dataItem);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+                dataMap.put("image",uploadImage);
+                dataMap.put("json",data.toString());
+                dataMap.put("count", String.valueOf(uploadData.getSenderId().size()));
+                Log.d("datamap", dataMap.get("image").toString());
+
+                String result = rh.sendPostRequest(UPLOAD_URL,dataMap);
+
                 Log.d("result",result);
+
                 return result;
+
             }
         }
 

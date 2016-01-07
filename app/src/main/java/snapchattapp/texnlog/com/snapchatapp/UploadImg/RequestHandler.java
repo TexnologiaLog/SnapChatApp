@@ -3,6 +3,9 @@ package snapchattapp.texnlog.com.snapchatapp.UploadImg;
 
 
 
+        import org.json.JSONArray;
+        import org.json.JSONObject;
+
         import java.io.BufferedReader;
         import java.io.BufferedWriter;
         import java.io.InputStreamReader;
@@ -43,7 +46,7 @@ public class RequestHandler {
     }
 
     public String sendPostRequest(String requestURL,
-                                  HashMap<String, String> postDataParams) {
+                                   HashMap<String, String> postDataParams) {
 
         URL url;
         String response = "";
@@ -81,6 +84,7 @@ public class RequestHandler {
         return response;
     }
 
+
     private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
@@ -97,4 +101,5 @@ public class RequestHandler {
 
         return result.toString();
     }
+
 }
