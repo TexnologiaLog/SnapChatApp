@@ -78,6 +78,15 @@
                 android:id="@+id/btnLogout"
                 android:src="@drawable/logout"
                 android:layout_gravity="left|bottom" />
+            <ImageButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="55dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:text="LogOut"
+                android:id="@+id/UserPhotos"
+                android:src="@drawable/logout"
+                android:layout_gravity="left|center" />
         </FrameLayout>
 
 

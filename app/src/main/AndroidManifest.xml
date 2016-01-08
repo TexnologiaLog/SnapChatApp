@@ -83,6 +83,10 @@
             android:name=".Camera.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".UploadImg.ReceiveSnap"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 

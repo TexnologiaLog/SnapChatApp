@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import snapchattapp.texnlog.com.snapchatapp.R;
 import snapchattapp.texnlog.com.snapchatapp.UploadImg.GalleryUpload;
+import snapchattapp.texnlog.com.snapchatapp.UploadImg.Upload;
 
 
 /**

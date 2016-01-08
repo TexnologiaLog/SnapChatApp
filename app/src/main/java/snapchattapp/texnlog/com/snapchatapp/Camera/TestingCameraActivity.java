@@ -125,7 +125,7 @@ public  class TestingCameraActivity extends Activity {
         btnLogout       = (ImageButton)  findViewById(R.id.btnLogout);
         btnUsers        = (Button)       findViewById(R.id.btnUsers);
         btnSettings     = (ImageButton)  findViewById(R.id.settings_button);
-        btnSnap         = (ImageButton)  findViewById(R.id.TestingCameraActivityBtnCheckSnap);
+        btnSnap         = (ImageButton)  findViewById(R.id.UserPhotos);
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
         btnPreviewImage.setEnabled(false);
