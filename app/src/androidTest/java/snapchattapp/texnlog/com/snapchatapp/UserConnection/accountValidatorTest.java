@@ -1,15 +1,13 @@
-package snapchattapp.texnlog.com.snapchatapp;
+package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
 import junit.framework.TestCase;
-
-
 import org.junit.Test;
 
-import snapchattapp.texnlog.com.snapchatapp.UserConnection.accountValidator;
+
 
 
 /**
- * Created by thomas on 10/11/2015.
+ * Created by thomas
  */
 public class accountValidatorTest extends TestCase {
 
