@@ -3,8 +3,12 @@ package snapchattapp.texnlog.com.snapchatapp.UploadImg;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +17,14 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.json.simple.JSONArray;
 import org.json.JSONException;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -32,51 +38,64 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
 /**
  * Created by SoRa1 on 7/1/2016.
  */
-public class ReceiveSnap extends  Activity implements onBitmapReceived
+public class ReceiveSnap extends Activity
 {
     private ImageView   imageView;
     private Chronometer chronometer;
     private ProgressDialog dialog;
     private UserLocalStore userLocalStore;
     private Users user;
-    private String phpurl ="http://projectdb.esy.es/Android/GetSnap.php";
-    private ArrayList<String> arrayList=new ArrayList<>();
-    private JSONParser jsonParser=new JSONParser();
-    private  ArrayList<String> photoUrls=new ArrayList();
-    private Bitmap bitmap;
-    private Integer count=0;
-    private ArrayList<Bitmap> bitMaps=new ArrayList<>();
+    private String URL="http://projectdb.esy.es/Android/GetSnap.php";
+    private String response;
+    private ArrayList<String> photoUrls;
+    private static int k=1;
+    private static int sizee=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        onBitmapReceived Ibitmap;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receive_snap);
-        Ibitmap=this;
+
         imageView   = (ImageView) findViewById(R.id.receiveSnapImageView);
         chronometer = (Chronometer) findViewById(R.id.ReceiveSnapChronometer);
+        photoUrls   = new ArrayList<>();
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ReceiveSnap.this, "Clicked", Toast.LENGTH_SHORT).show();
+                if(k<sizee)new ReceiveSnap_Async(ReceiveSnap.this,false,k++).execute();
+                else
+                {
+                    Toast.makeText(getBaseContext(),"No more snaps for view",Toast.LENGTH_SHORT).show();
+                    System.exit(0);
+                }
+            }
+        });
 
-        new ReceiveSnap_Async(ReceiveSnap.this).execute();
-
-
+        new ReceiveSnap_Async(ReceiveSnap.this,true,0).execute();
     }
 
-    class ReceiveSnap_Async extends AsyncTask<Void,Void,ArrayList<Bitmap>>
+    private class ReceiveSnap_Async extends AsyncTask
     {
-
-
         private final Context context;
-        private int i=0;
-
-        public ReceiveSnap_Async(Context COntext)
+        private JSONParser jsonParser;
+        private ArrayList<String> arrayList;
+        private Bitmap bitmap;
+        private Boolean flag;
+        private int index;
+        public ReceiveSnap_Async(Context COntext,Boolean state,int ind)
         {
-            Log.d("procedure", "enter_async");
-
             context=COntext;
             userLocalStore=new UserLocalStore(context);
             user=userLocalStore.getLoggedInUser();
+            jsonParser = new JSONParser();
+            flag=state;
+            index=ind;
+
         }
+
         @Override
         protected void onPreExecute()
         {
@@ -86,50 +105,61 @@ public class ReceiveSnap extends  Activity implements onBitmapReceived
             dialog.show();
         }
 
-
         @Override
-        protected ArrayList  doInBackground(Void...count)
+        protected Object doInBackground(Object[] objects)
         {
-            ArrayList<Bitmap> bitmaps =new ArrayList<>();
-            Log.d("procedure", "doInBackground");
-            try {
+            try
+            {
+                if(flag)
+                {
+                    String data = URLEncoder.encode("rec_id", "UTF-8") + "=" + URLEncoder.encode(user.getC_username(), "UTF-8");
+                    HttpURLConnection connection = WebService.httpRequest(data, URL);
+                    response = WebService.httpResponse(connection);
+                    Log.d("response", response);
+                    JSONArray jsonArray = (JSONArray) jsonParser.parse(response);
+                    arrayList = JSONtoArrayListData(jsonArray);
+                    Log.d("sds", arrayList.toString());
+                    for (int i = 0; i < arrayList.size(); i = i + 2) {
+                        photoUrls.add(arrayList.get(i));
 
-
-                String data= URLEncoder.encode("rec_id","UTF-8")+"="+URLEncoder.encode(user.getC_username(),"UTF-8");
-                HttpURLConnection connection=WebService.httpRequest(data, phpurl);
-                String response=WebService.httpResponse(connection);
-                Log.d("response",response);
-                JSONArray jsonArray= (JSONArray) jsonParser.parse(response);
-                arrayList=JSONtoArrayListData(jsonArray);
-                photoUrls=getPhotoUrls(arrayList);
-                Log.d("procedure-photourls",photoUrls.toString());
-                Log.d("arraylist",arrayList.toString());
-                for(int i=0;i<photoUrls.size();i++){
-                    bitmaps.add(getBitmapFromUrl(photoUrls.get(i)));
-
-
+                    }
+                    sizee=photoUrls.size();
+                    Log.d("GIa na dioume", photoUrls.toString());
+                    bitmap = getBitmapFromURL(photoUrls.get(0));
                 }
-                Log.d("procedure-bitmaplist",bitmaps.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                else
+                {
+                    bitmap = getBitmapFromURL(photoUrls.get(index));
+                }
 
+            } catch (Exception e) { e.printStackTrace(); }
 
-            return bitmaps;
+            return null;
         }
 
 
         @Override
-        protected void onPostExecute(ArrayList<Bitmap> bitmaps)
+        protected void onPostExecute(Object o)
         {
-             Integer photoCount =0;
-            Log.d("procedure","onPostExecute");
-            Log.d("procedure-setimage", bitmaps.get(photoCount).toString());
-           imageView.setImageBitmap(bitmaps.get(photoCount));
+            super.onPostExecute(o);
+            if(photoUrls.isEmpty())
+            {
+                Drawable myIcon = getResources().getDrawable( R.drawable.no_photo );
+                imageView.setImageDrawable(myIcon);
+                Log.d("YEAH", response);
+            }
+            else
+            {
 
+                imageView.setImageBitmap(bitmap);
+                Log.d("YEAH",response);
+            }
             dialog.dismiss();
-            super.onPostExecute(bitmaps);
+
         }
+
+
+
         public   ArrayList<String> JSONtoArrayListData(JSONArray jSONarray) throws JSONException {
             JSONObject tmp=null;
 
@@ -139,7 +169,7 @@ public class ReceiveSnap extends  Activity implements onBitmapReceived
                     tmp = (JSONObject) jSONarray.get(i);
 
 
-                        usersArrayList.add((String) tmp.get("photo_url"));
+                    usersArrayList.add((String) tmp.get("photo_url"));
 
                     usersArrayList.add((String) tmp.get("timer")) ;
 
@@ -148,70 +178,18 @@ public class ReceiveSnap extends  Activity implements onBitmapReceived
             return usersArrayList;
         }
 
-        public ArrayList<String> getPhotoUrls(ArrayList<String> arrayList){
-            ArrayList photoUrls=new ArrayList();
-
-
-            for(int i=0;i<arrayList.size();i++) {
-                if (!isInteger(arrayList.get(i))){
-                    photoUrls.add(arrayList.get(i));
-                }
-            }
-
-
-
-            return photoUrls;
-        }
-        public Bitmap getBitmapFromUrl(String url){
-            Log.d("procedure","enter bitmap function");
-            try{
-                URL photourl=new URL(url);
-                HttpURLConnection connection=(HttpURLConnection)photourl.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input =connection.getInputStream();
-
-                Bitmap bitmap= BitmapFactory.decodeStream(input);
-                if(bitmap==null)
-                Log.d("procedure ","bitmap is null");
-                else
-                Log.d("procedure",bitmap.toString()+bitmap.getByteCount());
-                return bitmap;
-            }catch (Exception e)
+        private Bitmap getBitmapFromURL(String url)
+        {
+            Bitmap bitmap=null;
+            try
             {
-                e.printStackTrace();
-                return null;
+                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+                InputStream inputStream = connection.getInputStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
             }
+            catch (Exception e) {e.printStackTrace();}
+
+            return bitmap;
         }
-
-        public  boolean isInteger(String str) {
-            if (str == null) {
-                return false;
-            }
-            int length = str.length();
-            if (length == 0) {
-                return false;
-            }
-            int i = 0;
-            if (str.charAt(0) == '-') {
-                if (length == 1) {
-                    return false;
-                }
-                i = 1;
-            }
-            for (; i < length; i++) {
-                char c = str.charAt(i);
-                if (c < '0' || c > '9') {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-
     }
-    public void onPhotoReceived(ArrayList<Bitmap> bitmaps) {
-        bitMaps=bitmaps;
-    }
-
 }
