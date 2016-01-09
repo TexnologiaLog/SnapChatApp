@@ -40,7 +40,7 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
  */
 
 
-public class Upload extends AppCompatActivity implements onBitmapReceived {
+public class Upload extends AppCompatActivity implements View.OnClickListener {
 
     public static final String UPLOAD_URL = "http://projectdb.esy.es/Android/upload.php";
     public static final String UPLOAD_KEY = "image";
@@ -48,16 +48,16 @@ public class Upload extends AppCompatActivity implements onBitmapReceived {
 
 
     private int RESULT_LOAD_IMAGE = 1;
-    private File mediaStorageDir,mediaFile;
+    private File mediaStorageDir, mediaFile;
     private Button buttonChoose;
     private Button buttonUpload;
-    private Button buttonView,buttonUsers;
-    private SendingData uploadData=SendingData.getInstance();
+    private Button buttonView, buttonUsers;
+    private SendingData uploadData = SendingData.getInstance();
     private UserLocalStore userLocalStore;
     private ImageView imageView;
 
     private Bitmap bitmap;
-    private ArrayList<Bitmap> bitMaps=new ArrayList<>();
+    private ArrayList<Bitmap> bitMaps = new ArrayList<>();
 
 
     private Uri filePath;
@@ -68,25 +68,23 @@ public class Upload extends AppCompatActivity implements onBitmapReceived {
         setContentView(R.layout.activity_upload);
         Intent intent = getIntent();
         String image = intent.getStringExtra("image");
-        Log.d("panagiotis1",image);
+        Log.d("panagiotis1", image);
         uploadData.setFirstImage(image);
         InitializeButtons();
-        userLocalStore=new UserLocalStore(getApplicationContext());
+        userLocalStore = new UserLocalStore(getApplicationContext());
 
 
-        bitmap=BitmapFactory.decodeFile(mediaFile.getPath());
+        bitmap = BitmapFactory.decodeFile(mediaFile.getPath());
         Log.d("panagiotis2", String.valueOf(bitmap));
     }
 
 
-
-
-    public void InitializeButtons(){
+    public void InitializeButtons() {
         Intent intent = getIntent();
         String image = intent.getStringExtra("image");
         buttonUsers = (Button) findViewById(R.id.optionUserButton);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
-        buttonView   = (Button) findViewById(R.id.buttonView);
+        buttonView = (Button) findViewById(R.id.buttonView);
 
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setImageURI(Uri.parse(image));
@@ -97,10 +95,10 @@ public class Upload extends AppCompatActivity implements onBitmapReceived {
         buttonUpload.setOnClickListener(this);
 
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_"+ ".jpg");
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "Custom_" + ".jpg");
     }
 
-    public String getStringImage(Bitmap bmp){
+    public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -108,8 +106,8 @@ public class Upload extends AppCompatActivity implements onBitmapReceived {
         return encodedImage;
     }
 
-    private void uploadImage(){
-        class UploadImage extends AsyncTask<Bitmap,Void,String>{
+    private void uploadImage() {
+        class UploadImage extends AsyncTask<Bitmap, Void, String> {
 
             ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
@@ -117,31 +115,31 @@ public class Upload extends AppCompatActivity implements onBitmapReceived {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(Upload.this, "Uploading Image", "Please wait...",true,true);
+                loading = ProgressDialog.show(Upload.this, "Uploading Image", "Please wait...", true, true);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
             }
 
             @Override
             protected String doInBackground(Bitmap... params) {
-                HashMap<String,String> dataMap=new HashMap<>();
-                JSONArray data =new JSONArray();
+                HashMap<String, String> dataMap = new HashMap<>();
+                JSONArray data = new JSONArray();
                 Bitmap bitmap = params[0];
                 String uploadImage = getStringImage(bitmap);
                 Log.d(TAG, uploadImage);
-                String userid=userLocalStore.getLoggedInUser().getC_username();
+                String userid = userLocalStore.getLoggedInUser().getC_username();
 
-                for(int i=0;i<uploadData.getSenderId().size();i++) {
-                        Log.d("SendData", String.valueOf(uploadData.getSenderId().size()));
-                        JSONObject dataItem =new JSONObject();
+                for (int i = 0; i < uploadData.getSenderId().size(); i++) {
+                    Log.d("SendData", String.valueOf(uploadData.getSenderId().size()));
+                    JSONObject dataItem = new JSONObject();
                     try {
-                        dataItem.put("userid",userid);
-                        dataItem.put("senderid",uploadData.getSenderId().get(i));
+                        dataItem.put("userid", userid);
+                        dataItem.put("senderid", uploadData.getSenderId().get(i));
                         dataItem.put("timer", 10);
 //                        dataItem.put("image",uploadImage);
                         data.put(dataItem);
@@ -152,14 +150,14 @@ public class Upload extends AppCompatActivity implements onBitmapReceived {
 
 
                 }
-                dataMap.put("image",uploadImage);
-                dataMap.put("json",data.toString());
+                dataMap.put("image", uploadImage);
+                dataMap.put("json", data.toString());
                 dataMap.put("count", String.valueOf(uploadData.getSenderId().size()));
                 Log.d("datamap", dataMap.get("image").toString());
 
-                String result = rh.sendPostRequest(UPLOAD_URL,dataMap);
+                String result = rh.sendPostRequest(UPLOAD_URL, dataMap);
 
-                Log.d("result",result);
+                Log.d("result", result);
 
                 return result;
 
@@ -174,19 +172,16 @@ public class Upload extends AppCompatActivity implements onBitmapReceived {
     @Override
     public void onClick(View v) {
 
-        if(v == buttonUpload){
+        if (v == buttonUpload) {
             uploadImage();
         }
 
-        if(v == buttonUsers)
-        {
+        if (v == buttonUsers) {
             uploadData.getSenderId().clear();
-            Intent intent =new Intent(Upload.this,FriendsPanel.class);
+            Intent intent = new Intent(Upload.this, FriendsPanel.class);
             startActivity(intent);
         }
     }
-
-    @Override
 
 }
 
