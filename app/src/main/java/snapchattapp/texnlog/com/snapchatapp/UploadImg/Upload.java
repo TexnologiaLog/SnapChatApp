@@ -40,7 +40,7 @@ import snapchattapp.texnlog.com.snapchatapp.UserConnection.UserLocalStore;
  */
 
 
-public class Upload extends AppCompatActivity implements View.OnClickListener {
+public class Upload extends AppCompatActivity implements onBitmapReceived {
 
     public static final String UPLOAD_URL = "http://projectdb.esy.es/Android/upload.php";
     public static final String UPLOAD_KEY = "image";
@@ -57,6 +57,8 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView;
 
     private Bitmap bitmap;
+    private ArrayList<Bitmap> bitMaps=new ArrayList<>();
+
 
     private Uri filePath;
 
@@ -183,6 +185,9 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
         }
     }
+
+    @Override
+
 }
 
 
