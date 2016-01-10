@@ -9,9 +9,10 @@
         android:id="@+id/receiveSnapImageView"
         android:layout_gravity="center_horizontal" />
 
-    <Chronometer
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ReceiveSnapChronometer"
+        android:text="null"
+        android:id="@+id/sender_Name"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

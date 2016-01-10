@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -48,8 +49,10 @@ public class ReceiveSnap extends Activity
     private String URL="http://projectdb.esy.es/Android/GetSnap.php";
     private String response;
     private ArrayList<String> photoUrls;
+    private ArrayList<String> senderIds;
     private static int k=1;
     private static int sizee=0;
+    private TextView senderName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,8 +61,9 @@ public class ReceiveSnap extends Activity
         setContentView(R.layout.activity_receive_snap);
 
         imageView   = (ImageView) findViewById(R.id.receiveSnapImageView);
-        chronometer = (Chronometer) findViewById(R.id.ReceiveSnapChronometer);
+//        chronometer = (Chronometer) findViewById(R.id.ReceiveSnapChronometer);
         photoUrls   = new ArrayList<>();
+        senderName =(TextView) findViewById(R.id.sender_Name);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +89,7 @@ public class ReceiveSnap extends Activity
         private Bitmap bitmap;
         private Boolean flag;
         private int index;
+        private String sender;
         public ReceiveSnap_Async(Context COntext,Boolean state,int ind)
         {
             context=COntext;
@@ -123,13 +128,21 @@ public class ReceiveSnap extends Activity
                         photoUrls.add(arrayList.get(i));
 
                     }
+                    for(int i=1;i<arrayList.size();i=i+2)
+                    {
+                        senderIds.add(arrayList.get(i));
+
+                    }
                     sizee=photoUrls.size();
                     Log.d("GIa na dioume", photoUrls.toString());
                     bitmap = getBitmapFromURL(photoUrls.get(0));
+                    sender=senderIds.get(0);
                 }
                 else
                 {
                     bitmap = getBitmapFromURL(photoUrls.get(index));
+                    sender = senderIds.get(index);
+
                 }
 
             } catch (Exception e) { e.printStackTrace(); }
@@ -147,10 +160,11 @@ public class ReceiveSnap extends Activity
                 Drawable myIcon = getResources().getDrawable( R.drawable.no_photo );
                 imageView.setImageDrawable(myIcon);
                 Log.d("YEAH", response);
+
             }
             else
             {
-
+                senderName.setText(sender);
                 imageView.setImageBitmap(bitmap);
                 Log.d("YEAH",response);
             }
