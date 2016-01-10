@@ -15,9 +15,9 @@ $count=$_POST['count'];
 for($i=0; $i<$count; $i++){
 $userid=$json[$i]['userid'];
 $senderid=$json[$i]['senderid'];
-$timer=10;
+$time=time();
 echo $userid." " .$senderid;
-$query =" INSERT INTO Snaps values(0,'$userid','$senderid','$absolute_path',$timer)";
+$query =" INSERT INTO Snaps values(0,'$userid','$senderid','$absolute_path',$time)";
 $result=mysqli_query($dbc,$query) or die(mysqli_error($dbc));
 }
 ?>
