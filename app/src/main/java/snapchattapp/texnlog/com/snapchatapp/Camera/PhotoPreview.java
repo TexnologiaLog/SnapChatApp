@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import snapchattapp.texnlog.com.snapchatapp.EditPhoto.EditPhoto;
 import snapchattapp.texnlog.com.snapchatapp.R;
 import snapchattapp.texnlog.com.snapchatapp.UploadImg.GalleryUpload;
 import snapchattapp.texnlog.com.snapchatapp.UploadImg.Upload;
@@ -88,6 +89,12 @@ public class PhotoPreview extends Activity
                 intent.putExtra("image",image);
                 startActivity(intent);
 
+            }
+        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), EditPhoto.class));
             }
         });
     }

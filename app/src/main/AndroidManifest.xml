@@ -87,6 +87,26 @@
             android:name=".UploadImg.ReceiveSnap"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".EditPhoto.EditPhoto"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EditPhoto.Frame"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".EditPhoto.Rotate"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".EditPhoto.SaveEditPhoto"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".EditPhoto.DrawText"
+            android:screenOrientation="portrait"/>
+
+
     </application>
 
 
