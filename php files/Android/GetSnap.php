@@ -6,7 +6,7 @@ $id=urldecode($_POST['rec_id']);
 
 
 
-$query="SELECT photo_url,sender_id FROM Snaps where receiver_id='$id'";
+$query="SELECT photo_url,sender_id FROM Snaps where receiver_id='$id' ORDER BY timer DESC ";
 
 $result=mysqli_query($dbc,$query)
 or die('Error in query: $query'.mysqli_error($dbc));
