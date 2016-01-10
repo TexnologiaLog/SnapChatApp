@@ -185,7 +185,7 @@ public class ReceiveSnap extends Activity
 
                     usersArrayList.add((String) tmp.get("photo_url"));
 
-                    usersArrayList.add((String) tmp.get("timer")) ;
+                    usersArrayList.add((String) tmp.get("sender_id")) ;
 
                 }
             }
