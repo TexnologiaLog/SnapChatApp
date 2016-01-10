@@ -61,8 +61,8 @@ public class ReceiveSnap extends Activity
         setContentView(R.layout.activity_receive_snap);
 
         imageView   = (ImageView) findViewById(R.id.receiveSnapImageView);
-//        chronometer = (Chronometer) findViewById(R.id.ReceiveSnapChronometer);
         photoUrls   = new ArrayList<>();
+        senderIds   = new ArrayList<>();
         senderName =(TextView) findViewById(R.id.sender_Name);
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +90,7 @@ public class ReceiveSnap extends Activity
         private Boolean flag;
         private int index;
         private String sender;
+
         public ReceiveSnap_Async(Context COntext,Boolean state,int ind)
         {
             context=COntext;
@@ -166,6 +167,7 @@ public class ReceiveSnap extends Activity
             {
                 senderName.setText(sender);
                 imageView.setImageBitmap(bitmap);
+                imageView.setRotation(90);
                 Log.d("YEAH",response);
             }
             dialog.dismiss();
