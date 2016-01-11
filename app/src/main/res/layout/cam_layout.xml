@@ -61,14 +61,6 @@
                 android:layout_gravity="right|bottom"
                 android:src="@drawable/ic_settings_black_24dp"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:id="@+id/btnUsers"
-                android:layout_marginBottom="70dp"
-                android:layout_gravity="left|bottom" />
-
             <ImageButton
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="55dp"
@@ -85,8 +77,17 @@
                 android:scaleType="centerCrop"
                 android:text="LogOut"
                 android:id="@+id/UserPhotos"
-                android:src="@drawable/logout"
+                android:src="@drawable/ic_star_rate_black_18dp"
                 android:layout_gravity="left|center" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:id="@+id/btnUsers"
+                android:layout_marginBottom="70dp"
+                android:src="@drawable/ic_account_circle_black_48dp"
+                android:layout_gravity="right|center_vertical" />
         </FrameLayout>
 
 
