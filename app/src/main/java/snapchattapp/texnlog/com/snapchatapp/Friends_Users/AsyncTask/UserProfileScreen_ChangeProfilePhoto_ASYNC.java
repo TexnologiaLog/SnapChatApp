@@ -76,7 +76,7 @@ public class UserProfileScreen_ChangeProfilePhoto_ASYNC extends AsyncTask
 
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bit.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        bit.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT);
 
         ArrayList<NameValuePair> dataToSend = new ArrayList<>();
@@ -96,7 +96,6 @@ public class UserProfileScreen_ChangeProfilePhoto_ASYNC extends AsyncTask
         catch (Exception e){e.printStackTrace();}
 
 
-//      webService.updateLocalDatabase(+username+".jpg",username);              //Absolute Path to Image locally
         webService.updateLocalDatabase(IMAGE_PATH +username+".jpg",username);   //Absolute Path to Image on remote server
 
         return null;

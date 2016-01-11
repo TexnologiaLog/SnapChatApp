@@ -78,14 +78,14 @@ public class PhotoPreview extends Activity
         btnGSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), GalleryUpload.class));
+                startActivity(new Intent(getApplicationContext(), GalleryUpload.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Upload.class);
+                Intent intent=new Intent(getApplicationContext(), Upload.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("image",image);
                 startActivity(intent);
 

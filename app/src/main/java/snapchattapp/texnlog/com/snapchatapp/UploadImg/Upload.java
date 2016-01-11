@@ -179,6 +179,7 @@ public class Upload extends AppCompatActivity implements View.OnClickListener {
         if (v == buttonUsers) {
             uploadData.getSenderId().clear();
             Intent intent = new Intent(Upload.this, FriendsPanel.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
