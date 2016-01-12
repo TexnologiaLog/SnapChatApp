@@ -70,7 +70,7 @@ public class UserProfileScreen_ChangeProfilePhoto_ASYNC extends AsyncTask
     protected Object doInBackground(Object[] objects)
     {
         BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inSampleSize=3;
+        options.inSampleSize=8;
         bit=BitmapFactory.decodeFile(new File(getPath(selectedImageUri,contentResolver)).getAbsolutePath(),options);
 
 
