@@ -123,7 +123,7 @@ public  class TestingCameraActivity extends Activity {
         layout          = (LinearLayout) findViewById(R.id.cam_layout);
         btnFrontCamera  = (ImageButton)  findViewById(R.id.btnFrontCam);
         btnLogout       = (ImageButton)  findViewById(R.id.btnLogout);
-        btnUsers        = (ImageButton)       findViewById(R.id.btnUsers);
+        btnUsers        = (ImageButton)  findViewById(R.id.btnUsers);
         btnSettings     = (ImageButton)  findViewById(R.id.settings_button);
         btnSnap         = (ImageButton)  findViewById(R.id.UserPhotos);
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "MyCameraApp");

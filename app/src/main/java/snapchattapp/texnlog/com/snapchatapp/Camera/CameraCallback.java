@@ -48,7 +48,8 @@ public class CameraCallback extends Activity implements Camera.PictureCallback
     }
 
     private static File getOutputMediaFile(int type){
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+        File mediaStorageDir = new File(Environment.
+                getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM), "MyCameraApp");
 
         if (! mediaStorageDir.exists()){
