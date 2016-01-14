@@ -7,11 +7,14 @@ import org.junit.Test;
 
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.accountValidator;
 
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Created by thomas on 10/11/2015.
  */
-public class accountValidatorTest extends TestCase {
+public class accountValidatorTest  {
 
     @Test
     public void nameValidationTest(){

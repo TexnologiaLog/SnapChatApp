@@ -93,8 +93,6 @@ public class UserProfileScreen extends Activity
             if (requestCode == REQUEST_CODE) {
                 Uri selectedImage = imageReturned.getData();
                 new UserProfileScreen_ChangeProfilePhoto_ASYNC(selectedImage,getApplicationContext(), imgViewProfileImage).execute();
-                String path=selectedImage.getPath();
-                Log.d("UserProfileScreen....", "Picture Taken \n"+"Path:"+path);
             }
         }
     }
