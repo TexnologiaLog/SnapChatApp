@@ -63,16 +63,15 @@ public class FriendsScreenActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(updateUI());
+        updateUI();
     }
 
-    public boolean updateUI()
+    public void updateUI()
     {
         UserLocalStore localStore=new UserLocalStore(context);
         Users user=localStore.getLoggedInUser();
         USER_ID=user.getC_id();
         new FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC(FriendsScreenActivity.this,USER_ID).execute();
-        return true;
     }
 
 

@@ -9,6 +9,7 @@ import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
 
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.FriendsScreenActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.Users;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.WebService;
 
@@ -22,6 +23,7 @@ public class FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC extends AsyncTa
     private static final String GetFriendsServiceURL ="http://projectdb.esy.es/Android/GetFriends.php";     //Remote location of web service
 
     private static String userID;
+    private final String TABLE_FRIENDS;
     private ProgressDialog dialog;
     private static Context context;
     public static JSONArray jSONarrayFriendsFromDatabase=null;
@@ -32,6 +34,7 @@ public class FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC extends AsyncTa
     {
         context=applicationContext;
         webService=new WebService(context);
+        TABLE_FRIENDS = webService.sQliteHandlerClass.TABLE_FRIENDS;
         userID=UserID;
         Log.d("GetFriendsFromRDatabase....","onConstructor");
     }
@@ -44,6 +47,9 @@ public class FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC extends AsyncTa
         dialog.setTitle("Please wait....");
         dialog.setMessage("Contacting Server");
         dialog.show();
+
+
+
         Log.d("GetFriendsFromRDatabase....JSONArray Result", "onPreExecute");
     }
 
@@ -60,9 +66,16 @@ public class FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC extends AsyncTa
     }
 
     @Override
-    protected void onPostExecute(Object o) {
+    protected void onPostExecute(Object o)
+    {
         super.onPostExecute(o);
         Log.d("GetFriendsFromRDatabase....JSONArray Result", "onPostExecute");
+
+        try
+        {
+            FriendsScreenActivity.addListData(webService.getUsersFromLocalDatabase(TABLE_FRIENDS));                                         //Fill listView at Friends Screen Activity
+        }
+        catch (NullPointerException e){e.printStackTrace();}
 
         friendsArrayListFromJSON=webService.JSONtoArrayListData(jSONarrayFriendsFromDatabase);              //Convert JSONArray to ArrayList<Users>
         new FriendsScreenActivity_StoreImagesLocally_ASYNC(friendsArrayListFromJSON,context).execute();     //Store Friends Personal images locally

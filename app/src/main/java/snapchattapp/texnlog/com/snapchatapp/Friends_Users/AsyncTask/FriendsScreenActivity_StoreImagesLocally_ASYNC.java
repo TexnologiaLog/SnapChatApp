@@ -22,10 +22,18 @@ import snapchattapp.texnlog.com.snapchatapp.Friends_Users.WebService;
  */
 public class FriendsScreenActivity_StoreImagesLocally_ASYNC extends AsyncTask
 {
-    private static final String TABLE_FRIENDS = SQliteHandlerClass.TABLE_FRIENDS;
+    private static  String TABLE_FRIENDS ;
     private  Context context;
     private  WebService service;
     private ArrayList<Users> arrayListUsers;
+
+    public FriendsScreenActivity_StoreImagesLocally_ASYNC(ArrayList<Users> users, Context conText)
+    {
+        arrayListUsers=users;
+        context=conText;
+        service=new WebService(context);
+        TABLE_FRIENDS = service.sQliteHandlerClass.TABLE_FRIENDS;
+    }
 
     @Override
     protected Object doInBackground(Object[] objects)
@@ -49,12 +57,7 @@ public class FriendsScreenActivity_StoreImagesLocally_ASYNC extends AsyncTask
         return null;
     }
 
-    public FriendsScreenActivity_StoreImagesLocally_ASYNC(ArrayList<Users> users, Context conText)
-    {
-        arrayListUsers=users;
-        context=conText;
-        service=new WebService(context);
-    }
+
 
     @Override
     protected void onPostExecute(Object o) {

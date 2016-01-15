@@ -64,8 +64,8 @@ public class SearchScreenActivity_SearchQuery_ASYNC extends AsyncTask {
     protected void onPostExecute(Object o)
     {
         super.onPostExecute(o);
-        if(ServerResponse.equals("null")) {SearchScreenActivity.addListData(null, NOT_FOUND_USERS_FLAG); Log.d("WTF","tis ton petooo");}
-        else {SearchScreenActivity.addListData(users, FOUND_USERS_FLAG); Log.d("EOXIREGAMHSOU", "tis ton petooo");}
+        if(users.isEmpty()) {SearchScreenActivity.addListData(null, NOT_FOUND_USERS_FLAG); Log.d("SearchScreen....ASYNC","No User Found");}
+        else {SearchScreenActivity.addListData(users, FOUND_USERS_FLAG); Log.d("SearchScreen....ASYNC", "User Found");}
     }
 
 

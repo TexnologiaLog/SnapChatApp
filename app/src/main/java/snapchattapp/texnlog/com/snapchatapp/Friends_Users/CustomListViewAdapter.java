@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -53,12 +54,14 @@ public class CustomListViewAdapter extends ArrayAdapter<Users>
 
         Log.d("CustomListViewAdapter....FlagValue", String.valueOf(ACTIVITY_TO_FILL_DATA));
 
-        if(ACTIVITY_TO_FILL_DATA ==FRIENDS_LISTVIEW)
+        if(ACTIVITY_TO_FILL_DATA == FRIENDS_LISTVIEW)
         {
             try
             {
                 FileInputStream fis=getContext().openFileInput(usersArrayList.get(position).getC_username());
-                Bitmap bit=BitmapFactory.decodeStream(fis);
+                BitmapFactory.Options options=new BitmapFactory.Options();
+                options.inSampleSize=8;
+                Bitmap bit=BitmapFactory.decodeStream(fis,null,options);
                 imageView.setImageBitmap(bit);
             } catch (FileNotFoundException e) {e.printStackTrace();}
 
