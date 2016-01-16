@@ -29,6 +29,7 @@ public class FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC extends AsyncTa
     public static JSONArray jSONarrayFriendsFromDatabase=null;
     public static ArrayList<Users> friendsArrayListFromJSON=new ArrayList<Users>();
     private static WebService webService;
+    private static String ServerResponse = "null";
 
     public FriendsScreenActivity_GetFriendsFromRDatabase_ASYNC(Context applicationContext, String UserID)
     {

@@ -88,7 +88,7 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
     }
 
 
-    public Users getUsers(String usernameToRead,String table) throws NullPointerException
+    public Users getUser(String usernameToRead, String table) throws NullPointerException
     {
         Users tmp=null;
         SQLiteDatabase db = this.getReadableDatabase();

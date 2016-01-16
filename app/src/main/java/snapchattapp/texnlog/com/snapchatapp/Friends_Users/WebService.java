@@ -104,7 +104,7 @@ public class   WebService
         Log.d("WebServiceGetFriendsRemote...",data.toString());
 
         HttpURLConnection connection=httpRequest(data,SendDataWebServiceURL);
-        String FriendsJSONstring =httpResponse(connection);
+        String FriendsJSONstring = httpResponse(connection);
 
 
         return (JSONArray) parser.parse(FriendsJSONstring);
@@ -116,7 +116,7 @@ public class   WebService
     {
         Users tmp=null;
         Log.d("WebService.....tableVALUE",table);
-        try{tmp=sQliteHandlerClass.getUsers(username,table);}
+        try{tmp=sQliteHandlerClass.getUser(username, table);}
         catch (NullPointerException e){e.printStackTrace();}
         return tmp;
     }
