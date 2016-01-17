@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -26,27 +27,27 @@ public class DrawText extends EditPhoto implements View.OnClickListener {
     private final Context context;
     ImageView iv;
     EditText editText;
-    Uri source1;
-
+    Uri path;
+    TextView ts;
 
     @Override
     public void onClick(View v) {
         start();
     }
 
-    public DrawText(ImageView imagePreview, Uri source, EditText editTextCaption, Context context) {
+    public DrawText(ImageView imagePreview, Uri source, EditText editTextCaption, TextView textSource1, Context context) {
 
         this.context = context.getApplicationContext();
         iv = imagePreview;
-        source1 = source;
+        path = source;
         editText = editTextCaption;
-
+        ts = textSource1;
 
     }
 
     public void start() {
 
-        if (source1 != null) {
+        if (path != null) {
             Bitmap processedBitmap = ProcessingBitmap();
             if (processedBitmap != null) {
                 iv.setImageBitmap(processedBitmap);
@@ -71,7 +72,7 @@ public class DrawText extends EditPhoto implements View.OnClickListener {
 
         try {
             bm1 = BitmapFactory.decodeStream(
-                    context.getContentResolver().openInputStream(source1));
+                    context.getContentResolver().openInputStream(path));
 
             Bitmap.Config config = bm1.getConfig();
             if (config == null) {
@@ -122,8 +123,8 @@ public class DrawText extends EditPhoto implements View.OnClickListener {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case RQS_IMAGE1:
-                    source1 = data.getData();
-                    textSource1.setText(source1.toString());
+                    path = data.getData();
+                    ts.setText(path.toString());
                     break;
             }
         }

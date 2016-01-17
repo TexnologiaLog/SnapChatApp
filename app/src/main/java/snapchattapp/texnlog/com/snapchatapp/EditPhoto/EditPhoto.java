@@ -37,7 +37,7 @@ public class EditPhoto extends Activity {
     TextView textSource1;
     EditText editTextCaption;
     Uri source1;
-    Bitmap bitmapMaster;
+    Bitmap bitmapMaster, tempBitmap;
     Canvas canvasMaster;
     Paint paintDraw;
     File mediaStorageDir, cachePath;
@@ -55,19 +55,36 @@ public class EditPhoto extends Activity {
         String value = "/storage/emulated/0/DCIM/MyCameraApp/Custom_.jpg";
         File file = new File(value);
         Uri uri = Uri.fromFile(file);
+        source1 = uri;
+        textSource1.setText(source1.toString());
         imagePreview = (ImageView) findViewById(R.id.photoEditPreview);
         imagePreview.setImageBitmap(null);
         try {
-        Bitmap bm = BitmapFactory.decodeStream(
-                getContentResolver().openInputStream(uri));
-        imagePreview.setImageBitmap(bm);
+            tempBitmap = BitmapFactory.decodeStream(
+                    getContentResolver().openInputStream(source1));
+
+            Bitmap.Config config;
+            if (tempBitmap.getConfig() != null) {
+                config = tempBitmap.getConfig();
+            } else {
+                config = Bitmap.Config.ARGB_8888;
+            }
+
+            //bitmapMaster is Mutable bitmap
+            bitmapMaster = Bitmap.createBitmap(
+                    tempBitmap.getWidth(),
+                    tempBitmap.getHeight(),
+                    config);
+
+            canvasMaster = new Canvas(bitmapMaster);
+            canvasMaster.drawBitmap(tempBitmap, 0, 0, null);
+
+            imagePreview.setImageBitmap(bitmapMaster);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         imagePreview.setAdjustViewBounds(true);
         Log.d(TAG, "ImageView created");
-        source1 = uri;
-        textSource1.setText(source1.toString());
     }
 
 
@@ -90,7 +107,7 @@ public class EditPhoto extends Activity {
 
         btnRotate.setOnClickListener(new Rotate(imagePreview, EditPhoto.this));
 
-        btnText.setOnClickListener(new DrawText(imagePreview, source1, editTextCaption, EditPhoto.this));
+        btnText.setOnClickListener(new DrawText(imagePreview, source1, editTextCaption, textSource1, EditPhoto.this));
 
         btnSave.setOnClickListener(new SaveEditPhoto(imagePreview, EditPhoto.this));
 
@@ -152,10 +169,10 @@ public class EditPhoto extends Activity {
             float bmw = bm.getWidth();
             float ivw = iv.getWidth();
             float bmh = bm.getHeight();
-            float ivh = bm.getHeight();
+            float ivh = iv.getHeight();
 
-            float ratioWidth = bmw/ivw;
-            float ratioHeight = bmh/ivh;
+            float ratioWidth = bmw / ivw;
+            float ratioHeight = bmh / ivh;
 
             canvasMaster.drawLine(
                     x0 * ratioWidth,
