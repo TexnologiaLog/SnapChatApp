@@ -1,6 +1,8 @@
 package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
-import junit.framework.TestCase;
+import android.test.AndroidTestCase;
+
+//import junit.framework.TestCase;
 import org.junit.Test;
 
 
@@ -9,7 +11,7 @@ import org.junit.Test;
 /**
  * Created by thomas
  */
-public class accountValidatorTest extends TestCase {
+public class accountValidatorTest extends AndroidTestCase {
 
     @Test
     public void nameValidationTest(){

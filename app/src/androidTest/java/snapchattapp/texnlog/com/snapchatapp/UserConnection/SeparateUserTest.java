@@ -1,6 +1,8 @@
 package snapchattapp.texnlog.com.snapchatapp.UserConnection;
 
-import junit.framework.TestCase;
+import android.test.AndroidTestCase;
+
+//import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import static org.junit.Assert.*;
 /**
  * Created by thomas
  */
-public class SeparateUserTest extends TestCase{
+public class SeparateUserTest extends AndroidTestCase{
     User mockUser = new User();
     List<User> userList = new ArrayList<>();
     String mock;
