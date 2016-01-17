@@ -68,8 +68,9 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
     }
 
 
-    public void addUser(Users user,String table)
+    public boolean addUser(Users user,String table)
     {
+
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues values = new ContentValues();
 
@@ -82,8 +83,10 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
 
 
         try{ db.insertOrThrow(table, null, values);}
-        catch (Exception e){Log.d("SQLiteHandlerClass....", e.getMessage());}
+        catch (Exception e){Log.d("SQLiteHandlerClass....", e.getMessage()); return false;}
         db.close();
+
+        return true;
 
     }
 

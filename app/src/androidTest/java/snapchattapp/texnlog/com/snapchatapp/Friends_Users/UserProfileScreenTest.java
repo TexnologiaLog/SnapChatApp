@@ -108,7 +108,7 @@ public class UserProfileScreenTest extends ActivityInstrumentationTestCase2<User
 
 
     @UiThreadTest
-    public void testDownloadImage() throws InterruptedException {
+    public void testDownloadImage() throws InterruptedException {  //NEEDS FIX
         uploader.execute();
         signal.await(30, TimeUnit.SECONDS);
 
@@ -128,7 +128,7 @@ public class UserProfileScreenTest extends ActivityInstrumentationTestCase2<User
     }
 
     @Test
-    public void testButtonClick() {
+    public void testButtonClick() {    //NEEDS FIX
         Intent resultData = new Intent();
         Drawable bit = getActivity().getResources().getDrawable(R.drawable.no_photo);
         resultData.putExtra("image", R.drawable.no_photo);

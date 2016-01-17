@@ -27,8 +27,8 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="sddd"
-        android:id="@+id/txtData"
+        android:text="null"
+        android:id="@+id/txtUsernameDetails"
         android:textSize="24dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/textView"
@@ -37,66 +37,67 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="First Name:"
+        android:text="Full Name:"
         android:id="@+id/textView1"
         android:textSize="24dp"
-        android:layout_alignTop="@+id/txtFirstName"
+        android:layout_alignTop="@+id/txtFullNameDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="sddd"
-        android:id="@+id/txtFirstName"
+        android:text="null"
+        android:id="@+id/txtFullNameDetails"
         android:textSize="24dp"
-        android:layout_below="@+id/txtData"
+        android:layout_below="@+id/txtUsernameDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="56dp"
         android:layout_toRightOf="@+id/textView1"
         android:layout_toEndOf="@+id/textView1" />
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="User Id:"
+         android:textSize="24dp"
+         android:layout_alignTop="@+id/txtUserIdDetails"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentStart="true" />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User ID:"
-        android:id="@+id/textView2"
-        android:textSize="24dp"
-        android:layout_above="@+id/txtAge"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="null"
-        android:id="@+id/txtLasstName"
         android:textSize="24dp"
-        android:layout_below="@+id/txtFirstName"
-        android:layout_marginTop="77dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_alignRight="@+id/txtData"
-        android:layout_alignEnd="@+id/txtData" />
+        android:id="@+id/txtUserIdDetails"
+        android:layout_marginTop="72dp"
+        android:layout_below="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:layout_toEndOf="@+id/textView1" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Age:"
-        android:id="@+id/textView3"
         android:textSize="24dp"
-        android:layout_alignBaseline="@+id/txtAge"
-        android:layout_alignBottom="@+id/txtAge"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="42dp"
+        android:id="@+id/textView2" />
+
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="sddd"
-        android:id="@+id/txtAge"
+        android:text="null"
+        android:id="@+id/txtAgeDetails"
         android:textSize="24dp"
-        android:layout_marginTop="67dp"
-        android:layout_below="@+id/txtLasstName"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_toEndOf="@+id/textView3" />
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignLeft="@+id/txtUserIdDetails"
+        android:layout_alignStart="@+id/txtUserIdDetails" />
+
 
 
     </RelativeLayout>

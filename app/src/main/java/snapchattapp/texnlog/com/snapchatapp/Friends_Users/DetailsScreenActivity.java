@@ -83,10 +83,10 @@ public class DetailsScreenActivity extends Activity
     }
 
     private void SetUpResources() {
-        txtUsername = (TextView) findViewById(R.id.txtData);
-        txtFullName = (TextView) findViewById(R.id.txtFirstName);
-        txtUserID   = (TextView) findViewById(R.id.txtLasstName);
-        txtAge      = (TextView) findViewById(R.id.txtAge);
+        txtUsername = (TextView) findViewById(R.id.txtUsernameDetails);
+        txtFullName = (TextView) findViewById(R.id.txtFullNameDetails);
+        txtUserID   = (TextView) findViewById(R.id.txtUserIdDetails);
+        txtAge      = (TextView) findViewById(R.id.txtAgeDetails);
         imageView   = (ImageView) findViewById(R.id.imageViewDetails);
 
         btnAddFriend=(Button) findViewById(R.id.btnAddFriend);
@@ -141,14 +141,14 @@ public class DetailsScreenActivity extends Activity
 
     }
 
-    private boolean checkIfExists(String user,String table)
+    public boolean checkIfExists(String user,String table)
     {
         Users tmp=null;
         tmp=service.getUser(user,table);
         if(tmp!=null){Log.d("wtf",tmp.getC_name());return true;}
         else return false;
     }
-    private boolean DoActionToFriendFromLocalAndRemoteDatabase(String user,String action,String table)
+    public boolean DoActionToFriendFromLocalAndRemoteDatabase(String user,String action,String table)
     {
        Users tmp=service.getUser(user,table);
        switch (action)

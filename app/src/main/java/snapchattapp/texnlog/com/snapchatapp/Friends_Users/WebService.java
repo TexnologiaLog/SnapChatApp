@@ -55,14 +55,17 @@ public class   WebService
         return (JSONArray) parser.parse(response);
     }
 
-    public void addDataToLocalDatabase(ArrayList<Users> usersArrayList,String table)
+    public boolean addDataToLocalDatabase(ArrayList<Users> usersArrayList,String table)
     {
+        boolean state=true;
         for(int i=0;i<usersArrayList.size();i++)
         {
-            sQliteHandlerClass.addUser(usersArrayList.get(i),table);
+            state = sQliteHandlerClass.addUser(usersArrayList.get(i),table);
+            Log.d("WebService......STATE", String.valueOf(state));
             Log.d("WebService...addDataToLocalDatabase", "Table:" + table + "\n" +usersArrayList.get(i).toString());
         }
         sQliteHandlerClass.close();
+        return state;
     }
 
     public ArrayList<Users> getUsersFromLocalDatabase(String TABLE)
