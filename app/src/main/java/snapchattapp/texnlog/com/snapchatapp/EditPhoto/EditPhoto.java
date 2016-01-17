@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
@@ -55,11 +56,18 @@ public class EditPhoto extends Activity {
         File file = new File(value);
         Uri uri = Uri.fromFile(file);
         imagePreview = (ImageView) findViewById(R.id.photoEditPreview);
-        imagePreview.setImageURI(uri);
+        imagePreview.setImageBitmap(null);
+        try {
+        Bitmap bm = BitmapFactory.decodeStream(
+                getContentResolver().openInputStream(uri));
+        imagePreview.setImageBitmap(bm);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         imagePreview.setAdjustViewBounds(true);
         Log.d(TAG, "ImageView created");
         source1 = uri;
-
+        textSource1.setText(source1.toString());
     }
 
 
@@ -72,8 +80,10 @@ public class EditPhoto extends Activity {
         btnFrameProcessing = (Button) findViewById(R.id.btnFrameProcessing);
         btnSave = (Button) findViewById(R.id.btnSave);
         ViewImage();
-
-
+        paintDraw = new Paint();
+        paintDraw.setStyle(Paint.Style.FILL);
+        paintDraw.setColor(Color.BLACK);
+        paintDraw.setStrokeWidth(10);
     }
 
     private void SetUpButtonListeners() {
@@ -139,8 +149,13 @@ public class EditPhoto extends Activity {
             return;
         } else {
 
-            float ratioWidth = (float) bm.getWidth() / (float) iv.getWidth();
-            float ratioHeight = (float) bm.getHeight() / (float) iv.getHeight();
+            float bmw = bm.getWidth();
+            float ivw = iv.getWidth();
+            float bmh = bm.getHeight();
+            float ivh = bm.getHeight();
+
+            float ratioWidth = bmw/ivw;
+            float ratioHeight = bmh/ivh;
 
             canvasMaster.drawLine(
                     x0 * ratioWidth,
@@ -164,6 +179,7 @@ public class EditPhoto extends Activity {
             switch (requestCode) {
                 case RQS_IMAGE1:
                     source1 = data.getData();
+                    textSource1.setText(source1.toString());
 
                     try {
                         //tempBitmap is Immutable bitmap,

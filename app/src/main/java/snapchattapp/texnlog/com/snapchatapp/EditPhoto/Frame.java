@@ -93,7 +93,7 @@ public class Frame extends EditPhoto implements Button.OnClickListener {
 
             newBitmap = Bitmap.createBitmap(w, h, config);
             Canvas newCanvas = new Canvas(newBitmap);
-            newCanvas.drawColor(Color.WHITE);
+            newCanvas.drawColor(Color.RED);
 
             Paint paint = new Paint();
             paint.setColor(Color.BLACK);

@@ -88,7 +88,7 @@ public class DrawText extends EditPhoto implements View.OnClickListener {
 
                 Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
                 paintText.setColor(Color.BLUE);
-                paintText.setTextSize(150);
+                paintText.setTextSize(100);
                 paintText.setStyle(Paint.Style.FILL);
                 paintText.setShadowLayer(20f, 20f, 20f, Color.BLACK);
 
