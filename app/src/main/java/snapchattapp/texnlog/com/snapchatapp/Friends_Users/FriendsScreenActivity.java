@@ -66,6 +66,8 @@ public class FriendsScreenActivity extends AppCompatActivity {
         updateUI();
     }
 
+
+
     public void updateUI()
     {
         UserLocalStore localStore=new UserLocalStore(context);

@@ -32,27 +32,15 @@ public class FriendsScreenActivityTest extends ActivityInstrumentationTestCase2<
 
 
 
-//    @Test
-//    public void testCameraButton()
-//    {
-//        Activity activity = getActivity();
-//
-//        Intents.init();
-//        onView(withId(R.id.btnFriendsScreenCamera)).perform(click());
-//
-//        intended(hasComponent(TestingCameraActivity.class.getName()));
-//        Intents.release();
-//
-//    }
 
     @Test
     public void testSearchFriendsButton()
     {
         Activity activity = getActivity();
         Intents.init();
-        onView(withId(R.id.btnFriendsScreenSearch)).perform(click());
+        onView(withId(R.id.btnFriendsScreenSearch)).perform(click()); // Perform click on "Search" button
 
-        intended(hasComponent(SearchScreenActivity.class.getName()));
+        intended(hasComponent(SearchScreenActivity.class.getName())); // Test if clicking on "SearchFriends" button loads the right activity
         Intents.release();
 
     }
@@ -63,9 +51,9 @@ public class FriendsScreenActivityTest extends ActivityInstrumentationTestCase2<
         Activity activity = getActivity();
 
         Intents.init();
-        onView(withText("panagiotis")).perform(click());
+        onView(withText("panagiotis")).perform(click());               // Test if user with text "panagiotis" exists
 
-        intended(hasComponent(DetailsScreenActivity.class.getName()));
+        intended(hasComponent(DetailsScreenActivity.class.getName())); // Test if clicking on a user the right activity is loaded
         Intents.release();
 
     }

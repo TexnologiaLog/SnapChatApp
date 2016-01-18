@@ -29,11 +29,11 @@ public class DetailsScreenActivityTest extends ActivityInstrumentationTestCase2<
         Intent intent=new Intent();
 
         ArrayList<Users> tmpList = new ArrayList<>();
-        tmpList.add(new Users("test","test","test","test","test","null"));
-        intent.putExtra("data", tmpList);
-        intent.putExtra("id", 0);
-        intent.putExtra("request_code",0);
-        setActivityIntent(intent);
+        tmpList.add(new Users("test","test","test","test","test","null"));    //
+        intent.putExtra("data", tmpList);                                     //
+        intent.putExtra("id", 0);                                             // Mocking intent extras passed to activity
+        intent.putExtra("request_code",0);                                    //
+        setActivityIntent(intent);                                            //
         activity=getActivity();
         getActivity();
         webService    = new WebService(activity.getApplicationContext());
@@ -46,10 +46,11 @@ public class DetailsScreenActivityTest extends ActivityInstrumentationTestCase2<
         TextView  txtId       = (TextView)  activity.findViewById(R.id.txtUserIdDetails);
         TextView  txtUserName = (TextView)  activity.findViewById(R.id.txtUsernameDetails);
         TextView  txtAge      = (TextView)  activity.findViewById(R.id.txtAgeDetails);
-        assertEquals("test", txtUserName.getText());
-        assertEquals("test",txtId.getText());
-        assertEquals("test", txtAge.getText());
-        assertNotNull(imageView.getDrawable());
+
+        assertEquals("test", txtUserName.getText());  //
+        assertEquals("test",txtId.getText());         // Expecting mock data passed from setUp()
+        assertEquals("test", txtAge.getText());       //  method
+        assertNotNull(imageView.getDrawable());       //
     }
 
     @Test
@@ -60,23 +61,30 @@ public class DetailsScreenActivityTest extends ActivityInstrumentationTestCase2<
         String LEGIT_USER = "panagiotis";
         String FAKE_USER  = "test";
 
-        assertFalse(activity.checkIfExists(FAKE_USER, TABLE_FRIENDS));
-        assertTrue(activity.checkIfExists(LEGIT_USER, TABLE_FRIENDS));
+        assertFalse(activity.checkIfExists(FAKE_USER, TABLE_FRIENDS));   // Expected false cause user "test" doesn't exist
+        assertTrue(activity.checkIfExists(LEGIT_USER, TABLE_FRIENDS));   // Expected true cause user "panagiotis" exists
     }
 
     @Test
-    public void testDoActionToDatabase() // Needs FIX
+    public void testDoActionToDatabase()
 
     {
 
         ArrayList<Users> tmpList = new ArrayList<>();
-        tmpList.add(new Users("test1", "test1", "test1", "test1", "test1", "null1"));
+        tmpList.add(new Users("97", "test1", "test1", "test1", "test1", "null1"));
 
 
         assertNull(webService.getUser("test1", TABLE_FRIENDS));   // User does not exist yet
 
-        webService.addDataToLocalDatabase(tmpList, TABLE_FRIENDS);  // User added to database
+        assertTrue(webService.addDataToLocalDatabase(tmpList, TABLE_FRIENDS));  // User added to database
 
-        assertNotNull(webService.getUser("test1", TABLE_FRIENDS));   // User does not exist yet
+        assertNotNull(webService.getUser("test1", TABLE_FRIENDS));   // User  exists
     }
+
+    protected void tearDown() throws Exception
+    {
+        webService.removeUser("test1"); // Remove user added during testing
+    }
+
+
 }

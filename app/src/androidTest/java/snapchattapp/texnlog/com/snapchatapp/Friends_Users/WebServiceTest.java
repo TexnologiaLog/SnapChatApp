@@ -1,15 +1,8 @@
 package snapchattapp.texnlog.com.snapchatapp.Friends_Users;
 
 
-import android.app.Activity;
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.ViewAssertion;
-import android.support.test.espresso.action.ViewActions;
-import android.support.test.espresso.assertion.ViewAssertions;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.UiThreadTest;
 import android.util.Log;
-import android.view.View;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
@@ -17,10 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
 /**
@@ -52,15 +42,13 @@ public class WebServiceTest extends ActivityInstrumentationTestCase2<FriendsScre
     public void testGetFriendsFromServer() throws IOException, ParseException
     {
 
-        onView(withText("panagiotis")).perform(ViewActions.swipeRight());
-
-        JSONArray array =  webService.getFriendsListFromRemoteDatabase(GetFriendsServiceURL, USER_ID_TO_TEST);
+        JSONArray array =  webService.getFriendsListFromRemoteDatabase(GetFriendsServiceURL, USER_ID_TO_TEST); // Get Friends from database
         Log.d("ServerResponse", String.valueOf(array));
         String response = array.toString();
 
-        assertNotNull("Doesn't have any friends", response);
-        assertTrue("Contains JSON data", response.startsWith("[{"));
-        assertTrue("Contains JSON data", response.endsWith("}]"));
+        assertNotNull("Doesn't have any friends", response);         // Connection with Server is successful
+        assertTrue("Contains JSON data", response.startsWith("[{")); // Response is valid
+        assertTrue("Contains JSON data", response.endsWith("}]"));   // JSON format
     }
 
     @Test
@@ -71,12 +59,12 @@ public class WebServiceTest extends ActivityInstrumentationTestCase2<FriendsScre
         ArrayList <Users> usersArrayList = webService.getUsersFromLocalDatabase(TABLE_FRIENDS);
         ArrayList<Users> expectedList = new ArrayList<>();
 
-        expectedList.add(new Users("1","harris","22","root","toor","null"));
-        expectedList.add(new Users("41", "panagiotis_athin", "23", "panagiotis", "athinakis", "null"));
-        expectedList.add(new Users("47", "xaris_tsatsaris", "22", "xaris", "tsatsaris", "null"));
+        expectedList.add(new Users("1","harris","22","root","toor","null"));                                // Adding your friends into
+        expectedList.add(new Users("41", "panagiotis_athin", "23", "panagiotis", "athinakis", "null"));     // an ArrayList<Users>
+        expectedList.add(new Users("47", "xaris_tsatsaris", "22", "xaris", "tsatsaris", "null"));           //
 
 
-        assertEquals(expectedList.toString(), usersArrayList.toString());
+        assertEquals(expectedList.toString(), usersArrayList.toString());                                   // Assert that you get the right list of friends
     }
 
 

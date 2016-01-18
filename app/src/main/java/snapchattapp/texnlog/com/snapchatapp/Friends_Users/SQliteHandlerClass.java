@@ -83,7 +83,7 @@ public class SQliteHandlerClass extends SQLiteOpenHelper
 
 
         try{ db.insertOrThrow(table, null, values);}
-        catch (Exception e){Log.d("SQLiteHandlerClass....", e.getMessage()); return false;}
+        catch (Exception e){Log.d("SQLiteHandlerClass....", e.getMessage());e.printStackTrace(); return false;}
         db.close();
 
         return true;
