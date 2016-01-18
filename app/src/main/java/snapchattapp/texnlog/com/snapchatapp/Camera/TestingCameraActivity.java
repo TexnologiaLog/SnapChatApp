@@ -20,12 +20,15 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import org.json.simple.parser.ParseException;
+
 import java.io.File;
 import java.io.IOException;
 
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.FriendsScreenActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.SearchScreenActivity;
 import snapchattapp.texnlog.com.snapchatapp.Friends_Users.UserProfileScreen;
+import snapchattapp.texnlog.com.snapchatapp.Friends_Users.WebService;
 import snapchattapp.texnlog.com.snapchatapp.UploadImg.ReceiveSnap;
 import snapchattapp.texnlog.com.snapchatapp.UserConnection.MainActivity;
 import snapchattapp.texnlog.com.snapchatapp.R;
@@ -52,6 +55,7 @@ public  class TestingCameraActivity extends Activity {
     private UserLocalStore localStore;
     private CameraParameters parameters=CameraParameters.getInstance();
     private ImageButton btnSnap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -142,7 +146,6 @@ public  class TestingCameraActivity extends Activity {
 
 
         zoomBar.setMax(customCameraParam.getMaxZoom());
-
 
         if (parameters.getParameters() != null && parameters.getState() == true) {
 
