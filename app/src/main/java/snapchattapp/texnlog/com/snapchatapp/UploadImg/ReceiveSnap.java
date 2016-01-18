@@ -121,10 +121,9 @@ public class ReceiveSnap extends Activity
                     String data = URLEncoder.encode("rec_id", "UTF-8") + "=" + URLEncoder.encode(user.getC_username(), "UTF-8");
                     HttpURLConnection connection = WebService.httpRequest(data, URL);
                     response = WebService.httpResponse(connection);
-                    Log.d("response", response);
+                    Log.d("ServerResponse", response);
                     JSONArray jsonArray = (JSONArray) jsonParser.parse(response);
                     arrayList = JSONtoArrayListData(jsonArray);
-                    Log.d("sds", arrayList.toString());
                     for (int i = 0; i < arrayList.size(); i = i + 2) {
                         photoUrls.add(arrayList.get(i));
 
@@ -135,7 +134,6 @@ public class ReceiveSnap extends Activity
 
                     }
                     sizee=photoUrls.size();
-                    Log.d("GIa na dioume", photoUrls.toString());
                     bitmap = getBitmapFromURL(photoUrls.get(0));
                     sender=senderIds.get(0);
                 }
@@ -160,7 +158,7 @@ public class ReceiveSnap extends Activity
             {
                 Drawable myIcon = getResources().getDrawable( R.drawable.no_photo );
                 imageView.setImageDrawable(myIcon);
-                Log.d("YEAH", response);
+                Log.d("ServerResponse", response);
 
             }
             else
@@ -168,7 +166,7 @@ public class ReceiveSnap extends Activity
                 senderName.setText(sender);
                 imageView.setImageBitmap(bitmap);
                 imageView.setRotation(90);
-                Log.d("YEAH",response);
+                Log.d("ServerResponse",response);
             }
             dialog.dismiss();
 

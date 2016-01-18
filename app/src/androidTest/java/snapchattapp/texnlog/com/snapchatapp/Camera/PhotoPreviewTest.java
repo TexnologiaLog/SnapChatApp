@@ -23,9 +23,7 @@ import org.mockito.MockitoAnnotations;
 
 import snapchattapp.texnlog.com.snapchatapp.EditPhoto.EditPhoto;
 import snapchattapp.texnlog.com.snapchatapp.R;
-import snapchattapp.texnlog.com.snapchatapp.UploadImg.FriendsPanel;
 import snapchattapp.texnlog.com.snapchatapp.UploadImg.GalleryUpload;
-import snapchattapp.texnlog.com.snapchatapp.UploadImg.Upload;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

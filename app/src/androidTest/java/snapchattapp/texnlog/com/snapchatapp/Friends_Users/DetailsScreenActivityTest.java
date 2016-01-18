@@ -35,7 +35,6 @@ public class DetailsScreenActivityTest extends ActivityInstrumentationTestCase2<
         intent.putExtra("request_code",0);                                    //
         setActivityIntent(intent);                                            //
         activity=getActivity();
-        getActivity();
         webService    = new WebService(activity.getApplicationContext());
         TABLE_FRIENDS = webService.sQliteHandlerClass.TABLE_FRIENDS;
     }
